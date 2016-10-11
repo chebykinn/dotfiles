@@ -15,8 +15,7 @@
 !.vim
 !.i3
 !.config
-!.config/.gitignore
 !.ssh
-!.ssh/.gitignore
 !.yaourtrc
 !README.md
+!LICENSE
