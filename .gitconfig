@@ -21,3 +21,4 @@
 	safecrlf = true
 	eol = lf
 	editor = vim
+	pager = less -R
