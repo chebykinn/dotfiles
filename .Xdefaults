@@ -1,0 +1,55 @@
+Xft.dpi: 96.0
+! hintnone, hintslight, hintmedium, hintfull
+Xft.hintstyle: hintslight
+Xft.hinting: true
+! lcdnone, lcddefault, lcdlight, lcdlegacy
+Xft.lcdfilter: lcddefault
+Xft.antialias: true
+Xft.rgba: rgb
+
+URxvt.font:     xft:Monospace:size=10
+URxvt.boldFont: xft:Monospace:bold:size=10
+
+!Black
+URxvt*color0:   #101010
+URxvt*color8:   #505050
+!Red
+URxvt*color1:   #a2363a
+URxvt*color9:   #ff5b62
+!!Green
+URxvt*color2:   #3ca034
+URxvt*color10:  #3ed421
+!!Yellow
+URxvt*color3:   #b3930f
+URxvt*color11:  #f1c719
+!!Blue
+URxvt*color4:   #286f8a
+URxvt*color12:  #4382c4
+!!Magenta
+URxvt*color5:   #746d76
+URxvt*color13:  #b287ba
+!!Cyan
+URxvt*color6:   #42ab9e
+URxvt*color14:  #9bc6c0
+!!White
+URxvt*color7:   #c0c0c0
+URxvt*color15:  #ffffff
+
+URxvt.geometry: 80x24
+URxvt.depth: 32
+URxvt.background: [90]#000000
+!URxvt*.transparent: true
+! URxvt*.shading: 0 to 99 darkens, 101 to 200 lightens
+!URxvt*.shading: 10
+URxvt.foreground: #DEDEDE
+URxvt.scrollstyle: plain
+URxvt.scrollBar: false
+URxvt.keysym.Shift-Control-C: perl:clipboard:copy
+URxvt.keysym.Shift-Control-V: perl:clipboard:paste
+URxvt.iso14755: False
+URxvt.perl-ext-common: default,matcher,vtwheel,clipboard
+URxvt.url-launcher: /usr/bin/opera
+URxvt.matcher.button: 1
+
+URxvt.clipboard.copycmd:  xsel -ib
+URxvt.clipboard.pastecmd: xsel -ob

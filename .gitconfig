@@ -1,0 +1,23 @@
+[user]
+	name = chebykinn
+	email = ivan@chebykinn.ru
+[alias]
+  a    = add
+  br   = branch
+  co   = checkout
+  c    = commit
+  cm   = commit -m
+  cl   = clone
+  d    = diff
+  st   = status -sb
+  p    = push
+  pl   = pull
+  rmt  = remote
+  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+  type = cat-file -t
+  dump = cat-file -p
+[core]
+	autocrlf = input
+	safecrlf = true
+	eol = lf
+	editor = vim
