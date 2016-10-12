@@ -48,7 +48,7 @@ URxvt.keysym.Shift-Control-C: perl:clipboard:copy
 URxvt.keysym.Shift-Control-V: perl:clipboard:paste
 URxvt.iso14755: False
 URxvt.perl-ext-common: default,matcher,vtwheel,clipboard
-URxvt.url-launcher: /usr/bin/opera
+URxvt.url-launcher: /usr/bin/xdg-open
 URxvt.matcher.button: 1
 
 URxvt.clipboard.copycmd:  xsel -ib
