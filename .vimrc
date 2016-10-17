@@ -26,6 +26,7 @@ set tabstop=4
 
 set showmatch				" Briefly jump to the matching bracket when typing
 set matchtime=0
+set tags=./tags,./TAGS,./ctags,tags,TAGS,ctags
 
 " Alternatively (in your .vimrc, to completely disable the plugin):
 "let loaded_matchparen = 1
