@@ -188,7 +188,7 @@ bindsym Escape mode "default"
 
 bindsym $mod+r mode "resize"
 
-set $sink 0
+set $sink @DEFAULT_SINK@
 # music
 bindsym $mod+comma exec --no-startup-id pactl set-sink-volume $sink -5% && killall -SIGUSR1 i3status
 bindsym $mod+period exec --no-startup-id pactl set-sink-volume $sink +5% && killall -SIGUSR1 i3status
