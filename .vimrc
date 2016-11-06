@@ -29,7 +29,7 @@ set matchtime=0
 set tags=./tags,./TAGS,./ctags,tags,TAGS,ctags
 
 " Alternatively (in your .vimrc, to completely disable the plugin):
-"let loaded_matchparen = 1
+let loaded_matchparen = 1
 
 nohl						" Disable highlighting last search in new files
 
