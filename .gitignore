@@ -16,6 +16,8 @@
 !.i3
 !.config
 !.ssh
+!.mutt
 !.yaourtrc
+!.passwd
 !README.md
 !LICENSE

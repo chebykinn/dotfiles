@@ -1,0 +1,65 @@
+source "gpg -dq $HOME/.passwd/mutt.gpg |"
+bind generic,alias,attach,browser,editor,index,compose,pager,pgp,postpone ':' noop
+
+color hdrdefault white black  # headers white on black
+color header brightgreen black ^From:  # sender's name in green
+color quoted cyan black  # quoted text in blue
+color signature red black   # signature in red
+
+set header_cache = ~/.cache/mutt
+set message_cachedir = "~/.cache/mutt"
+# Allow Mutt to open new imap connection automatically.
+unset imap_passive
+# Keep IMAP connection alive by polling intermittently (time in seconds).
+set imap_keepalive = 300
+# How often to check for new mail (time in seconds).
+set mail_check = 120
+set fast_reply=yes
+set include=yes
+
+set sort=threads
+set sort_aux=last-date-received
+
+set pager_context=3
+set pager_stop=yes
+
+set sidebar_visible = no
+
+bind index,pager B sidebar-toggle-visible
+# Ctrl-n, Ctrl-p to select next, previous folder.
+# Ctrl-o to open selected folder.
+bind index,pager \CP sidebar-prev
+bind index,pager \CN sidebar-next
+bind index,pager \CO sidebar-open
+
+bind pager j next-line
+bind pager k previous-line
+bind attach,index,pager \CD next-page
+bind attach,index,pager \CU previous-page
+bind pager g top
+bind pager G bottom
+bind attach,index g first-entry
+bind attach,index G last-entry
+
+
+# Yandex Mail
+set imap_user=ivan@chebykinn.ru
+set imap_pass=$my_yandex_pw
+set folder=imaps://imap.yandex.ru/
+set spoolfile=+INBOX
+
+set smtp_url=smtps://$imap_user:$imap_pass@smtp.yandex.ru
+set realname="Иван Чебыкин"
+set from=ivan@chebykinn.ru
+set hostname="yandex.ru"
+set signature="$HOME/.mutt/sign"
+# Connection options
+set ssl_force_tls = yes
+set send_charset="utf-8"
+unset ssl_starttls
+set record = +Отправленные
+set copy
+
+mailboxes =INBOX
+mailboxes imaps://imap.yandex.ru/INBOX imaps://imap.yandex.ru/Отправленные
+# Yandex Mail
