@@ -29,6 +29,7 @@ unset SSH_ASKPASS
 
 alias itmossh='ssh helios'
 alias ls='ls --color=always --group-directories-first'
+alias l='ls -lah | less -RM'
 alias rm='rm -i'
 alias srestart='sudo systemctl restart'
 alias sstart='sudo systemctl start'
