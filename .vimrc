@@ -2,7 +2,7 @@
 
 " Variables
 
-set nocompatible			
+set nocompatible
 set backspace=indent,eol,start 		" backspacing over everything in insert
 set backup							" keep a backup file
 set history=7000					" keep 7000 lines of command line history
@@ -103,6 +103,14 @@ nmap <silent> <leader>mw :call MarkWindowSwap()<CR>
 nmap <silent> <leader>pw :call DoWindowSwap()<CR>
 
 nmap <Leader>tt :exe "tabn ".g:lasttab<CR>
+
+" To create a new tab
+nnoremap <C-w>t :tabnew<CR>
+inoremap <C-w>t <Esc>:tabnew<CR>
+
+" Tab Navigation
+nnoremap H gT
+nnoremap L gt
 
 "==============================================================================
 
