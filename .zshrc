@@ -24,12 +24,20 @@ unset SSH_ASKPASS
 
 #==============================================================================
 
+# Functions
+
+function _less_ls(){
+	ls -lah $@ | less -RM
+}
+
+#==============================================================================
+
 # Aliases
 
 
 alias itmossh='ssh helios'
 alias ls='ls --color=always --group-directories-first'
-alias l='ls -lah | less -RM'
+alias l='_less_ls'
 alias rm='rm -i'
 alias srestart='sudo systemctl restart'
 alias sstart='sudo systemctl start'
