@@ -41,25 +41,8 @@ bind pager G bottom
 bind attach,index g first-entry
 bind attach,index G last-entry
 
+source "~/.mutt/ivan@chebykinn.ru"
 
-# Yandex Mail
-set imap_user=ivan@chebykinn.ru
-set imap_pass=$my_yandex_pw
-set folder=imaps://imap.yandex.ru/
-set spoolfile=+INBOX
+folder-hook 'imaps://ivan@chebykinn.ru' 'source ~/.mutt/ivan@chebykinn.ru'
 
-set smtp_url=smtps://$imap_user:$imap_pass@smtp.yandex.ru
-set realname="Иван Чебыкин"
-set from=ivan@chebykinn.ru
-set hostname="yandex.ru"
-set signature="$HOME/.mutt/sign"
-# Connection options
-set ssl_force_tls = yes
-set send_charset="utf-8"
-unset ssl_starttls
-set record = +Отправленные
-set copy
-
-mailboxes =INBOX
-mailboxes imaps://imap.yandex.ru/INBOX imaps://imap.yandex.ru/Отправленные
-# Yandex Mail
+folder-hook 'imaps://ivan@chebykin.org' 'source ~/.mutt/ivan@chebykin.org'
