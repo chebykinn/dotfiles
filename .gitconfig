@@ -1,6 +1,6 @@
 [user]
-	name = chebykinn
-	email = ivan@chebykinn.ru
+	name = Ivan Chebykin
+	email = ivan@chebykin.org
 [alias]
   a    = add
   br   = branch
@@ -11,6 +11,7 @@
   d    = diff
   st   = status -sb
   p    = push
+  psu  = push --set-upstream
   pl   = pull
   rmt  = remote
   hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
