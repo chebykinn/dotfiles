@@ -41,7 +41,7 @@ bind pager G bottom
 bind attach,index g first-entry
 bind attach,index G last-entry
 
-source "~/.mutt/ivan@chebykinn.ru"
+source "~/.mutt/ivan@chebykin.org"
 
 folder-hook 'imaps://ivan@chebykinn.ru' 'source ~/.mutt/ivan@chebykinn.ru'
 
