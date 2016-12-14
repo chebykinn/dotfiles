@@ -23,3 +23,5 @@
 	eol = lf
 	editor = vim
 	pager = less -R
+[commit]
+	gpgsign = true
