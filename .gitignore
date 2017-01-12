@@ -1,6 +1,7 @@
 /*
 
 !.gitignore
+!.zconf-sample
 !.zshrc
 !.vimrc
 !.dircolors
