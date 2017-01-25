@@ -31,8 +31,12 @@ unset SSH_ASKPASS
 
 # Functions
 
+function _extra_ls(){
+	ls --color=always --group-directories-first $@
+}
+
 function _less_ls(){
-	ls -lah $@ | less -RM
+	_extra_ls -lah $@ | less -RM
 }
 
 #==============================================================================
@@ -41,7 +45,7 @@ function _less_ls(){
 
 
 alias itmossh='ssh helios'
-alias ls='ls --color=always --group-directories-first'
+alias ls='_extra_ls'
 alias l='_less_ls'
 alias rm='rm -i'
 alias srestart='sudo systemctl restart'
