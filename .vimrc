@@ -108,10 +108,6 @@ nmap <Leader>tt :exe "tabn ".g:lasttab<CR>
 nnoremap <C-w>t :tabnew<CR>
 inoremap <C-w>t <Esc>:tabnew<CR>
 
-" Tab Navigation
-nnoremap H gT
-nnoremap L gt
-
 "==============================================================================
 
 " Commands
@@ -182,6 +178,20 @@ command! W w
 
 " Trim trailing spaces and tabs
 command! Trim %s/\(\s\|<tab>\)\+$//g|noh
+
+function s:MkNonExDir(file, buf)
+    if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
+        let dir=fnamemodify(a:file, ':h')
+        if !isdirectory(dir)
+            call mkdir(dir, 'p')
+        endif
+    endif
+endfunction
+
+augroup BWCCreateDir
+    autocmd!
+    autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
+augroup END
 
 au TabLeave * let g:lasttab = tabpagenr()
 
