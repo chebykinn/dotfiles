@@ -49,7 +49,7 @@ set langmap=!\\"№\\;%?*ёйцукенгшщзхъфывапролджэячс�
 
 " Airline settings
 let g:airline_theme = 'badwolf'
-let g:airline#extensions#whitespace#mixed_indent_algo = 1
+let g:airline#extensions#whitespace#mixed_indent_algo = 2
 set laststatus=2
 set ttimeoutlen=50			" Timeout for airline mode switching
 
@@ -70,6 +70,9 @@ let g:indentLine_char = '¦' " or ▸
 " Show tabs indent
 set listchars=tab:\ \ ,trail:\·
 set list
+
+set path+=src
+set path+=src/include
 "==============================================================================
 
 " Keymaps
@@ -179,7 +182,7 @@ command! W w
 " Trim trailing spaces and tabs
 command! Trim %s/\(\s\|<tab>\)\+$//g|noh
 
-function s:MkNonExDir(file, buf)
+function! s:MkNonExDir(file, buf)
     if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
         let dir=fnamemodify(a:file, ':h')
         if !isdirectory(dir)
