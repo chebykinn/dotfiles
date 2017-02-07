@@ -4,7 +4,7 @@
 
 # Variables
 
-export BROWSER='opera'
+export BROWSER='xdg-open'
 export LESS="-FX"
 export R="$HOME/root"
 export RD="$R/data"
@@ -32,7 +32,7 @@ unset SSH_ASKPASS
 # Functions
 
 function _extra_ls(){
-	ls --color=always --group-directories-first $@
+	/bin/ls --color=always --group-directories-first $@
 }
 
 function _less_ls(){
