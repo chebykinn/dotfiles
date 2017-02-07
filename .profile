@@ -3,6 +3,5 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 PATH="$HOME/.cargo/bin:$PATH"
-[ -d "$HOME/.cabal/" ] && PATH="$HOME/.cabal/bin:$PATH"
 
 export TERMINAL=urxvt
