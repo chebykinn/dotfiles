@@ -142,7 +142,9 @@ if has("autocmd")
 	\ endif
 
 	" Set filetype to tpp files
-	au BufRead,BufNewFile *.tpp setfiletype cpp
+	au BufRead,BufNewFile *.tpp setfiletype cpp.doxygen
+	au BufRead,BufNewFile *.cpp setfiletype cpp.doxygen
+	au BufRead,BufNewFile *.h setfiletype cpp.doxygen
 
 	augroup END
 
