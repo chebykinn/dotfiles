@@ -56,6 +56,7 @@ alias sdisable='sudo systemctl disable'
 alias sstatus='sudo systemctl status'
 alias weather='curl wttr.in'
 alias wine32="WINEPREFIX=$WINEPATH32 wine"
+alias todo="todo-txt"
 alias g="git"
 
 #==============================================================================
