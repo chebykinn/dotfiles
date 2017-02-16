@@ -148,6 +148,13 @@ if has("autocmd")
 
 	augroup END
 
+	augroup BWCCreateDir
+		autocmd!
+		autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
+	augroup END
+
+	au TabLeave * let g:lasttab = tabpagenr()
+
 endif
 
 " Convenient command to see the difference between the current buffer and the
@@ -176,14 +183,6 @@ function! DoWindowSwap()
 	exe 'hide buf' markedBuf
 endfunction
 
-" Write as root
-command! Sw w !sudo tee % >/dev/null
-
-command! W w
-
-" Trim trailing spaces and tabs
-command! Trim %s/\(\s\|<tab>\)\+$//g|noh
-
 function! s:MkNonExDir(file, buf)
     if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
         let dir=fnamemodify(a:file, ':h')
@@ -193,12 +192,28 @@ function! s:MkNonExDir(file, buf)
     endif
 endfunction
 
-augroup BWCCreateDir
-    autocmd!
-    autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
-augroup END
+function! AddFunctionBody() range
+	" Save current pos
+	let l:winview = winsaveview()
+	" Do subst
+	exe a:firstline.','.a:lastline.'s/;/ {}/'
+	" Delete trailing line
+	exe line('.').'d'
+	" Clear search pattern
+	let @/ = ""
+	" Restore pos
+	call winrestview(l:winview)
+endfunction
 
-au TabLeave * let g:lasttab = tabpagenr()
+" Write as root
+command! Sw w !sudo tee % >/dev/null
+
+command! W w
+
+" Trim trailing spaces and tabs
+command! Trim %s/\(\s\|<tab>\)\+$//g|noh
+
+command! -range Fnbody <line1>,<line2>call AddFunctionBody()
 
 "==============================================================================
 
