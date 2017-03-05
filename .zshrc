@@ -24,6 +24,7 @@ export MANPATH=$HOME/.multirust/toolchains/nightly-$BTARGET/share/man:$MANPATH
 export WINEPATH="$HOME/.wine"
 export WINEPATH32="$HOME/.wine32"
 export QT_STYLE_OVERRIDE=gtk
+export BUP_DIR="$R/.bup"
 
 unset SSH_ASKPASS
 
@@ -56,7 +57,14 @@ alias sdisable='sudo systemctl disable'
 alias sstatus='sudo systemctl status'
 alias weather='curl wttr.in'
 alias wine32="WINEPREFIX=$WINEPATH32 wine"
-alias todo="todo-txt"
+TODOTXT_EXISTS="`type todo-txt >/dev/null`"
+if [ $? -ne 0 ]; then
+	alias todo="todo.sh"
+else
+	alias todo="todo-txt"
+fi
+# && alias todo="todo-txt" || alias todo="todo.sh"
+#alias todo="todo-txt"
 alias g="git"
 
 #==============================================================================
