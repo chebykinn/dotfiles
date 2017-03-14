@@ -1,3 +1,0 @@
-(C) Allow usb io to reuse transfers @enhancement +interface-lib
-(Y) Documentation @doc +interface-lib
-(A) Daemonize usb reader @feature +usb-reader
