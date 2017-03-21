@@ -241,7 +241,7 @@ exec --no-startup-id xset r rate 250 50
 exec --no-startup-id compton -C
 
 exec --no-startup-id nm-applet
-exec --no-startup-id nvidia-settings -a '[gpu:0]/GpuPowerMizerMode=1'
+
 exec --no-startup-id nextcloud
 
 exec --no-startup-id xset s off
