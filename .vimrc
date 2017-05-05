@@ -12,7 +12,7 @@ set showcmd							" display incomplete commands
 set incsearch						" do incremental searching
 set ttyfast
 set number
-set cursorline
+set nocursorline
 
 set smartindent
 set autoindent
@@ -145,6 +145,10 @@ if has("autocmd")
 	au BufRead,BufNewFile *.tpp setfiletype cpp.doxygen
 	au BufRead,BufNewFile *.cpp setfiletype cpp.doxygen
 	au BufRead,BufNewFile *.h setfiletype cpp.doxygen
+
+	augroup pandoc_syntax
+		au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
+	augroup END
 
 	augroup END
 
