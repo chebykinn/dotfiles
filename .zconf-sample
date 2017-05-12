@@ -53,3 +53,18 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 #if [ -z "$STY" ]; then
 	#exec screen -RR
 #fi
+
+## workaround for handling TERM variable in multiple tmux sessions properly from http://sourceforge.net/p/tmux/mailman/message/32751663/ by Nicholas Marriott
+if [[ -n ${TMUX} && -n ${commands[tmux]} ]];then
+	case $(tmux showenv TERM 2>/dev/null) in
+		*256color) ;&
+			TERM=fbterm)
+			TERM=screen-256color ;;
+        *)
+			TERM=screen
+	esac
+fi
+
+# If not running interactively, do not do anything
+[[ $- != *i* ]]  && return
+[[ -z "$TMUX" ]] && exec tmux

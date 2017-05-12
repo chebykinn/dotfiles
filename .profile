@@ -4,4 +4,4 @@ if [ -d "$HOME/bin" ] ; then
 fi
 PATH="$HOME/.cargo/bin:$PATH"
 
-export TERMINAL=urxvt
+export TERMINAL=st

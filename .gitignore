@@ -22,5 +22,6 @@
 !.passwd
 !.screenrc
 !.todo
+!.tmux.conf
 !README.md
 !LICENSE
