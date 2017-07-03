@@ -1,4 +1,3 @@
-(C) Allow usb io to reuse transfers @enhancement +interface-lib
 Documentation @doc +interface-lib
+(A) Bufferize reading from device +interface-lib
 
-(A) Add timeouts to transfer functions @enhancement +interface-lib

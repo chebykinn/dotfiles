@@ -1,1 +1,3 @@
 x 2017-02-16 Fix BaseCommand @fix +interface-lib
+x 2017-04-06 Allow usb io to reuse transfers @enhancement +interface-lib
+x 2017-04-06 Add timeouts to transfer functions @enhancement +interface-lib
