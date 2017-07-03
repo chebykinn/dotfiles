@@ -3,5 +3,5 @@ term screen-256color
 startup_message off
 vbell off
 #termcapinfo xterm* ti@:te@
-termcapinfo xterm|xterms|xs|rxvt ti@:te@
+termcapinfo xterm|xterms|xs|rxvt|st ti@:te@
 defscrollback 10000
