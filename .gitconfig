@@ -2,21 +2,24 @@
 	name = Ivan Chebykin
 	email = ivan@chebykin.org
 [alias]
-  a    = add
-  br   = branch
-  co   = checkout
-  c    = commit
-  cm   = commit -m
-  cl   = clone
-  d    = diff
-  st   = status -sb
-  p    = push
-  psu  = push --set-upstream
-  pl   = pull
-  rmt  = remote
-  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
-  type = cat-file -t
-  dump = cat-file -p
+	a    = add
+	br   = branch
+	co   = checkout
+	c    = commit
+	cm   = commit -m
+	ca   = commit --amend
+	cam  = commit --amend -m
+	can  = commit --amend --no-edit
+	cl   = clone
+	d    = diff
+	st   = status -sb
+	p    = push
+	psu  = push --set-upstream
+	pl   = pull
+	rmt  = remote
+	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+	type = cat-file -t
+	dump = cat-file -p
 [core]
 	autocrlf = input
 	safecrlf = true
@@ -27,3 +30,5 @@
 	gpgsign = true
 [color]
 	ui = auto
+[push]
+	followTags = true
