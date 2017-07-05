@@ -1,4 +1,4 @@
-source "gpg -dq $HOME/.passwd/mutt.gpg |"
+source "gpg -dq $HOME/.config/passwd/mutt.gpg |"
 bind generic,alias,attach,browser,editor,index,compose,pager,pgp,postpone ':' noop
 
 color hdrdefault white black  # headers white on black
@@ -41,8 +41,8 @@ bind pager G bottom
 bind attach,index g first-entry
 bind attach,index G last-entry
 
-source "~/.mutt/ivan@chebykin.org"
+source "~/.config/mutt/ivan@chebykin.org"
 
-folder-hook 'imaps://ivan@chebykinn.ru' 'source ~/.mutt/ivan@chebykinn.ru'
+folder-hook 'imaps://ivan@chebykinn.ru' 'source ~/.config/mutt/ivan@chebykinn.ru'
 
-folder-hook 'imaps://ivan@chebykin.org' 'source ~/.mutt/ivan@chebykin.org'
+folder-hook 'imaps://ivan@chebykin.org' 'source ~/.config/mutt/ivan@chebykin.org'

@@ -25,6 +25,8 @@ export WINEPATH="$HOME/.wine"
 export WINEPATH32="$HOME/.wine32"
 export QT_STYLE_OVERRIDE=gtk
 export BUP_DIR="$R/.bup"
+export ASDK="$ROPT/android-sdk"
+export NDK="$ASDK/ndk-bundle"
 
 unset SSH_ASKPASS
 

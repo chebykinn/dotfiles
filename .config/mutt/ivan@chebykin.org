@@ -8,7 +8,7 @@ set smtp_url=smtps://$imap_user:$imap_pass@smtp.yandex.ru
 set realname="Ivan Chebykin"
 set from=ivan@chebykin.org
 set hostname="yandex.ru"
-set signature="$HOME/.mutt/sign"
+set signature="$HOME/.config/mutt/sign"
 # Connection options
 set ssl_force_tls = yes
 set send_charset="utf-8"
