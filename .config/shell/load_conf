@@ -1,5 +1,6 @@
 load_conf(){
 	ext_dir="$1.d"
+	set --
 	[ -d "$ext_dir" ] && for env_script in "$ext_dir"/*; do
 		[ -r "$env_script" ] && . "$env_script"
 	done
