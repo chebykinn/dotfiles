@@ -1,3 +1,0 @@
-Documentation @doc +interface-lib
-(A) Bufferize reading from device +interface-lib
-
