@@ -7,5 +7,7 @@
 !passwd
 !mutt
 !yaourt
+!shell
 !compton.conf
+!dircolors
 !.gitignore

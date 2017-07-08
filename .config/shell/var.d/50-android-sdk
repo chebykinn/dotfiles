@@ -1,0 +1,2 @@
+export ASDK="$ROPT/android-sdk"
+export NDK="$ASDK/ndk-bundle"

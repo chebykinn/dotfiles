@@ -1,0 +1,1 @@
+alias wine32="WINEPREFIX=$WINEPATH32 wine"
