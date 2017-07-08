@@ -1,3 +1,5 @@
+[ "$SHELL_TYPE" != "oh-my-zsh" ] && return
+
 # Path to your oh-my-zsh installation.
 ZSH=/usr/share/oh-my-zsh/
 
