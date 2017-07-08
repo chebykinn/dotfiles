@@ -1,7 +1,6 @@
 /*
 
 !.gitignore
-!.zconf-sample
 !.zshrc
 !.vimrc
 !.gdbinit
