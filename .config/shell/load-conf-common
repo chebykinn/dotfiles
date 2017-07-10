@@ -1,0 +1,10 @@
+ext_dir="$0.d"
+if [ ! -z "$ext_dir_OVERRIDE" ]; then
+	echo "override: $ext_dir_OVERRIDE" >> ~/was_run
+	ext_dir=$ext_dir_OVERRIDE
+	unset ext_dir_OVERRIDE
+fi
+echo $ext_dir >> ~/dir
+[ -d "$ext_dir" ] && for env_script in "$ext_dir"/*; do
+	[ -r "$env_script" ] && . "$env_script"
+done
