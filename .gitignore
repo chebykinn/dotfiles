@@ -10,6 +10,7 @@
 !.xinitrc
 !.vim
 !.config
+!.local
 !.ssh
 !.screenrc
 !.tmux.conf
