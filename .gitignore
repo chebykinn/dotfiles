@@ -14,5 +14,6 @@
 !.ssh
 !.screenrc
 !.tmux.conf
+!root
 !README.md
 !LICENSE
