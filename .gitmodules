@@ -1,6 +1,3 @@
-[submodule ".vim/bundle/airline-themes"]
-	path = .vim/bundle/airline-themes
-	url = https://github.com/vim-airline/vim-airline-themes
 [submodule ".vim/bundle"]
 	path = .vim/bundle
 	url = userver:git/dotfiles-vim-plugins.git
