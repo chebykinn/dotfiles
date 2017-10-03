@@ -26,7 +26,7 @@ setopt HIST_IGNORE_SPACE # Don't preserve spaces. You may want to turn it off
 setopt NO_HIST_BEEP # Don't beep
 setopt SHARE_HISTORY # Share history between session/terminals
 
-ZSH_CACHE_DIR=$HOME/.oh-my-zsh-cache
+ZSH_CACHE_DIR="$XDG_CACHE_HOME/oh-my-zsh"
 if [[ ! -d $ZSH_CACHE_DIR ]]; then
 	mkdir $ZSH_CACHE_DIR
 fi
