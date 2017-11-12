@@ -76,6 +76,8 @@ set path+=src/include
 
 " Increase max number of tabs when opening with -p option
 set tabpagemax=100
+
+let g:easytags_async=1
 "==============================================================================
 
 " Keymaps
