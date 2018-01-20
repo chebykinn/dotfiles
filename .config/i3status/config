@@ -49,11 +49,11 @@ volume master {
 }
 
 sysdata "mem" {
-	format = ": {mem_used}/{mem_total} GiB"
+	format = "🔘: {mem_used}/{mem_total} GiB"
 }
 
 sysdata "cpu" {
-	format = ": {cpu_usage}%"
+	format = "🔨: {cpu_usage}%"
 }
 
 external_script "player" {
