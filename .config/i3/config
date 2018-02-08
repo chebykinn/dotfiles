@@ -276,7 +276,7 @@ bindsym --release Shift+Print exec --no-startup-id scrot -u -e 'mv $f ~/root/dat
 bindsym --release Control+Print exec --no-startup-id gnome-screenshot -a
 
 workspace_auto_back_and_forth yes
-hide_edge_borders vertical
+hide_edge_borders both
 font pango: Dejavu LGC Sans Mono 9
 #assign [class="Firefox"] 1 web
 #assign [class="subl"] 2 dev
@@ -311,6 +311,9 @@ for_window [title="^Подтвердите"] floating enable
 for_window [title="^Покинуть"] floating enable
 for_window [class="^Pidgin$" window_role="^buddy_list$"] move left
 for_window [class="^Pidgin$" window_role="^conversation$"] resize grow width 0 px or 30 ppt; move left
+
+for_window [class="^.*"] border pixel 1
+new_window 1pixel
 
 # Disable wheel up and down
 bindsym button4 nop
