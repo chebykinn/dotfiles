@@ -256,7 +256,7 @@ for_window [class="^Pidgin$" window_role="^conversation$"] resize grow width 0 p
 
 # Disable window titles
 for_window [class="^.*"] border pixel 1
-new_window 1pixel
+new_window pixel
 
 # Disable scrolling workspaces with mouse wheel
 bindsym button4 nop
