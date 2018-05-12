@@ -14,13 +14,8 @@ set ttyfast
 set number
 set nocursorline
 
-set smartindent
-set autoindent
-set noexpandtab
-set copyindent
-set preserveindent
-
-set softtabstop=0
+set expandtab
+set softtabstop=4
 set shiftwidth=4
 set tabstop=4
 
@@ -78,6 +73,10 @@ set path+=src/include
 set tabpagemax=100
 
 let g:easytags_async=1
+
+let g:pandoc#syntax#conceal#use = 0
+
+let g:tex_fast = ""
 "==============================================================================
 
 " Keymaps
@@ -127,7 +126,7 @@ if has("autocmd")
 	" Use the default filetype settings, so that mail gets 'tw' set to 72,
 	" 'cindent' is on in C files, etc.
 	" Also load indent files, to automatically do language-dependent indenting.
-	filetype plugin on
+	filetype plugin indent on
 
 	" Put these in an autocmd group, so that we can delete them easily.
 	augroup vimrcEx
