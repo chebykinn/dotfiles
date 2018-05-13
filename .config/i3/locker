@@ -1,0 +1,44 @@
+#/usr/bin/env bash
+
+# Run locker with background from GNOME settings
+
+
+LOCKER_EXECUTABLE="i3lock"
+LOCKER_CMDLINE="i3lock -c 000000 -i"
+LOCKER_CACHE="$HOME/.cache/i3lock"
+
+BG_CONF_SCRIPT="$HOME/.config/i3/background-config"
+
+if ! command -v "$LOCKER_EXECUTABLE" >/dev/null 2>&1; then
+    echo >&2 "No $LOCKER_EXECUTABLE installed, exiting."
+    exit 2
+fi
+
+if ! command -v "$BG_CONF_SCRIPT" >/dev/null 2>&1; then
+    echo >&2 "No $BG_CONF_SCRIPT installed, exiting."
+    exit 2
+fi
+
+BACKGROUND_PATH="$($BG_CONF_SCRIPT --get-lock-bg-path)"
+BACKGROUND_IMG="$BACKGROUND_PATH"
+
+# Coverting jpg images to png because i3lock devs don't want to support jpg
+# Also get current resolution because it doesn't even support scaling
+if echo "$BACKGROUND_PATH" | grep -vq '\.png$'; then
+    if ! command -v "convert" >/dev/null 2>&1; then
+        echo >&2 "No imagemagick installed, exiting."
+        exit 2
+    fi
+    if ! command -v "xdpyinfo" >/dev/null 2>&1; then
+        echo >&2 "No xdpyinfo installed, exiting."
+        exit 2
+    fi
+
+    SCALE="$(xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/')"
+
+    mkdir -p "$LOCKER_CACHE"
+    BACKGROUND_IMG="$LOCKER_CACHE/$(basename $BACKGROUND_PATH).png"
+    [ ! -f "$BACKGROUND_IMG" ] && convert -scale "$SCALE" "$BACKGROUND_PATH" "$BACKGROUND_IMG"
+fi
+
+$LOCKER_CMDLINE "$BACKGROUND_IMG"

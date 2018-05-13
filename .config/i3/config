@@ -130,17 +130,12 @@ bindcode $mod+Shift+$KP_0 move workspace number 10 misc
 bindsym $mod+Shift+C reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+R restart
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+E exit
 
-set $background /home/ivan/root/data/images/synced/backgrounds/yosemite.png
-set $Locker i3lock -c 000000 -i
-#output * bg $background fill
-exec --no-startup-id feh --bg-scale $background
+set $Locker ~/.config/i3/locker
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
-    bindsym l exec --no-startup-id $Locker $background, mode "default"
+    bindsym l exec --no-startup-id $Locker, mode "default"
     bindsym e exec --no-startup-id i3-msg exit, mode "default"
     bindsym s exec --no-startup-id systemctl suspend, mode "default"
     bindsym h exec --no-startup-id systemctl hibernate, mode "default"
@@ -194,18 +189,16 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-set $status_cmd py3status
-set $sink @DEFAULT_SINK@
 # music
-bindsym $mod+comma exec --no-startup-id pactl set-sink-volume $sink -5% && killall -SIGUSR1 $status_cmd
-bindsym $mod+period exec --no-startup-id pactl set-sink-volume $sink +5% && killall -SIGUSR1 $status_cmd
-bindsym $mod+p exec --no-startup-id playerctl play-pause
+bindsym $mod+comma  exec --no-startup-id ~/.config/i3/sound-control down
+bindsym $mod+period exec --no-startup-id ~/.config/i3/sound-control up
+bindsym $mod+p      exec --no-startup-id ~/.config/i3/sound-control toggle-player
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume $sink +5% && killall -SIGUSR1 $status_cmd #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume $sink -5% && killall -SIGUSR1 $status_cmd #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute $sink toggle # mute sound
-bindsym $mod+m exec --no-startup-id pactl set-sink-mute $sink toggle # mute sound
+bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.config/i3/sound-control up
+bindsym XF86AudioLowerVolume exec --no-startup-id ~/.config/i3/sound-control down
+bindsym XF86AudioMute        exec --no-startup-id ~/.config/i3/sound-control mute
+bindsym $mod+m               exec --no-startup-id ~/.config/i3/sound-control mute
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
@@ -225,27 +218,23 @@ bindsym --release Print exec --no-startup-id scrot -e 'mv $f ~/root/data/images/
 bindsym --release Shift+Print exec --no-startup-id scrot -u -e 'mv $f ~/root/data/images/screenshots/'
 bindsym --release Control+Print exec --no-startup-id gnome-screenshot -a
 
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+
+bindsym $mod+z [title="^Telegram"] scratchpad show
+bindsym $mod+x [instance="vlc"] scratchpad show
+bindsym $mod+c [title="^Nextcloud"] scratchpad show
+
 workspace_auto_back_and_forth yes
 hide_edge_borders both
 
-# Start gnome-specific config daemons
-exec --no-startup-id /usr/lib/gnome-settings-daemon/gnome-settings-daemon
-exec --no-startup-id /usr/lib/notification-daemon-1.0/notification-daemon
-exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-xsettings
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+# Launch autoexec scripts
+exec --no-startup-id ~/.config/i3/autoexec
 
-# Configuration scripts
-exec_always --no-startup-id ~/.config/i3/keyboard-config
-exec --no-startup-id xset s off
-exec --no-startup-id xset -dpms
-exec --no-startup-id xset b off
-
-# Autostart programs
-exec --no-startup-id compton -C
-
-exec --no-startup-id nm-applet
-
-exec --no-startup-id nextcloud
+# Scratchpad apps
+for_window [title="^Nextcloud"] move scratchpad
+for_window [title="^Telegram"] move scratchpad
+for_window [instance="vlc"] move scratchpad
 
 # Floating mode fixes for some windows
 for_window [instance="ucommander"] floating enable
@@ -259,13 +248,14 @@ for_window [class="^Pidgin$" window_role="^conversation$"] resize grow width 0 p
 for_window [class="^.*"] border pixel 1
 new_window pixel
 
-# Disable scrolling workspaces with mouse wheel
+# Disable scrolling containers with mouse wheel
 bindsym button4 nop
 bindsym button5 nop
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
+    # Disable scrolling workspaces with mouse wheel
     wheel_up_cmd nop
     wheel_down_cmd nop
     status_command py3status

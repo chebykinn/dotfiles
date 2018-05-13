@@ -1,0 +1,13 @@
+#!/bin/sh
+
+SINK="@DEFAULT_SINK@"
+STATUS_CMD="py3status"
+
+case "$1" in
+    up) pactl set-sink-volume "$SINK" +5% ;;
+    down) pactl set-sink-volume "$SINK" -5% ;;
+    mute) pactl set-sink-mute "$SINK" toggle ;;
+    toggle-player) playerctl play-pause ;;
+esac
+
+killall -SIGUSR1 "$STATUS_CMD"

@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+# Set i3 background image from GNOME settings
+
+prepare_gsettings_path() {
+    path="$1"
+    [ -z "$path" ] && return 1
+    sed -e "s/^'//" -e "s/'$//" -e 's@file://@@' <<< "$path"
+}
+
+ROOT_SCHEMA_PATH="org.gnome.desktop"
+SCHEMA_PATH="$ROOT_SCHEMA_PATH.background"
+LOCK_SCHEMA_PATH="$ROOT_SCHEMA_PATH.screensaver"
+KEY_NAME="picture-uri"
+BG_SETTER_EXECUTABLE="feh"
+BG_SETTER_CMDLINE="feh --bg-scale"
+
+if ! command -v "$BG_SETTER_EXECUTABLE" >/dev/null 2>&1; then
+    echo >&2 "No $BG_SETTER_EXECUTABLE installed, exiting."
+    exit 2
+fi
+
+if ! command -v gsettings >/dev/null 2>&1; then
+    echo >&2 "No gsettings installed, exiting."
+    exit 2
+fi
+
+CUR_VAL=$(gsettings get "$SCHEMA_PATH" "$KEY_NAME")
+CUR_PATH=$(prepare_gsettings_path "$CUR_VAL")
+
+case "$1" in
+    --get-bg-path) echo "$CUR_PATH" && exit 0 ;;
+    --get-lock-bg-path)
+        LOCK_VAL=$(gsettings get "$LOCK_SCHEMA_PATH" "$KEY_NAME")
+        LOCK_PATH=$(prepare_gsettings_path "$LOCK_VAL")
+        echo "$LOCK_PATH" && exit 0
+    ;;
+esac
+
+$BG_SETTER_CMDLINE "$CUR_PATH"
+
+gsettings monitor "$SCHEMA_PATH" "$KEY_NAME" | while read -r key val; do
+    BACKGROUND_PATH="$(prepare_gsettings_path "$val")"
+    $BG_SETTER_CMDLINE "$BACKGROUND_PATH"
+done

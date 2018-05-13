@@ -1,0 +1,6 @@
+#!/bin/sh
+
+~/.config/i3/keyboard-config &
+xset s off                   &
+xset -dpms                   &
+xset b off                   &

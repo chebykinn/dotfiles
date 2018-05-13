@@ -1,0 +1,7 @@
+#!/bin/sh
+
+compton -C                           &
+nm-applet                            &
+nextcloud                            &
+telegram-desktop -startintray        &
+$HOME/.config/i3/background-config   &
