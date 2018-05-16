@@ -15,8 +15,8 @@ bindsym $mod+Return exec i3-sensible-terminal
 # kill focused window
 bindsym $mod+Shift+Q kill
 
-# start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
+# start program launcher
+bindsym $mod+d exec ~/.config/i3/launcher
 
 # change focus
 bindsym $mod+h focus left
