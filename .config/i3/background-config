@@ -14,10 +14,17 @@ LOCK_SCHEMA_PATH="$ROOT_SCHEMA_PATH.screensaver"
 KEY_NAME="picture-uri"
 BG_SETTER_EXECUTABLE="feh"
 BG_SETTER_CMDLINE="feh --bg-scale"
+BG_SETTER_CMDLINE_END=""
 
-if ! command -v "$BG_SETTER_EXECUTABLE" >/dev/null 2>&1; then
-    echo >&2 "No $BG_SETTER_EXECUTABLE installed, exiting."
-    exit 2
+if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+    set -f
+    BG_SETTER_CMDLINE='swaymsg -t command output * bg'
+    BG_SETTER_CMDLINE_END='fill'
+else
+    if ! command -v "$BG_SETTER_EXECUTABLE" >/dev/null 2>&1; then
+        echo >&2 "No $BG_SETTER_EXECUTABLE installed, exiting."
+        exit 2
+    fi
 fi
 
 if ! command -v gsettings >/dev/null 2>&1; then
@@ -37,9 +44,9 @@ case "$1" in
     ;;
 esac
 
-$BG_SETTER_CMDLINE "$CUR_PATH"
+$BG_SETTER_CMDLINE "$CUR_PATH" $BG_SETTER_CMDLINE_END
 
 gsettings monitor "$SCHEMA_PATH" "$KEY_NAME" | while read -r key val; do
     BACKGROUND_PATH="$(prepare_gsettings_path "$val")"
-    $BG_SETTER_CMDLINE "$BACKGROUND_PATH"
+    $BG_SETTER_CMDLINE "$BACKGROUND_PATH" $BG_SETTER_CMDLINE_END
 done
