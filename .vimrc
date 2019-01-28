@@ -3,13 +3,13 @@
 " Variables
 
 set nocompatible
-set backspace=indent,eol,start 		" backspacing over everything in insert
-set backup							" keep a backup file
-set history=7000					" keep 7000 lines of command line history
-set ruler							" show the cursor position all the time
+set backspace=indent,eol,start      " backspacing over everything in insert
+set backup                          " keep a backup file
+set history=7000                    " keep 7000 lines of command line history
+set ruler                           " show the cursor position all the time
 set mouse=a
-set showcmd							" display incomplete commands
-set incsearch						" do incremental searching
+set showcmd                         " display incomplete commands
+set incsearch                       " do incremental searching
 set ttyfast
 set number
 set nocursorline
@@ -19,20 +19,21 @@ set softtabstop=4
 set shiftwidth=4
 set tabstop=4
 
-set showmatch				" Briefly jump to the matching bracket when typing
+set showmatch               " Briefly jump to the matching bracket when typing
 set matchtime=0
 set tags=./tags;./TAGS;./ctags;tags;TAGS;ctags
+set signcolumn=yes
 
 " Alternatively (in your .vimrc, to completely disable the plugin):
 let loaded_matchparen = 1
 
-nohl						" Disable highlighting last search in new files
+nohl                        " Disable highlighting last search in new files
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
 if &t_Co > 2 || has("gui_running")
-	syntax on
-	set hlsearch
+    syntax on
+    set hlsearch
 endif
 
 set t_Co=256
@@ -46,7 +47,7 @@ set langmap=!\\"№\\;%?*ёйцукенгшщзхъфывапролджэячс�
 let g:airline_theme = 'badwolf'
 let g:airline#extensions#whitespace#mixed_indent_algo = 2
 set laststatus=2
-set ttimeoutlen=50			" Timeout for airline mode switching
+set ttimeoutlen=50          " Timeout for airline mode switching
 
 " Directories to keep *~ and *.swp files
 set backupdir=./.backup,~/root/data/tmp,/tmp
@@ -77,6 +78,11 @@ let g:easytags_async=1
 let g:pandoc#syntax#conceal#use = 0
 
 let g:tex_fast = ""
+
+let g:asyncomplete_smart_completion = 0
+let g:asyncomplete_auto_popup = 0
+let g:lsp_signs_enabled = 1         " enable signs
+let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
 "==============================================================================
 
 " Keymaps
@@ -115,6 +121,14 @@ nmap <Leader>tt :exe "tabn ".g:lasttab<CR>
 nnoremap <C-w>t :tabnew<CR>
 inoremap <C-w>t <Esc>:tabnew<CR>
 
+inoremap <silent><expr> <TAB>
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ asyncomplete#force_refresh()
+
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+
 "==============================================================================
 
 " Commands
@@ -122,46 +136,63 @@ inoremap <C-w>t <Esc>:tabnew<CR>
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
-	" Enable file type detection.
-	" Use the default filetype settings, so that mail gets 'tw' set to 72,
-	" 'cindent' is on in C files, etc.
-	" Also load indent files, to automatically do language-dependent indenting.
-	filetype plugin indent on
+    " Enable file type detection.
+    " Use the default filetype settings, so that mail gets 'tw' set to 72,
+    " 'cindent' is on in C files, etc.
+    " Also load indent files, to automatically do language-dependent indenting.
+    filetype plugin indent on
 
-	" Put these in an autocmd group, so that we can delete them easily.
-	augroup vimrcEx
-	au!
+    " Put these in an autocmd group, so that we can delete them easily.
+    augroup vimrcEx
+    au!
 
-	" For all text files set 'textwidth' to 78 characters.
-	autocmd FileType text setlocal textwidth=78
+    " For all text files set 'textwidth' to 78 characters.
+    autocmd FileType text setlocal textwidth=78
 
-	" When editing a file, always jump to the last known cursor position.
-	" Don't do it when the position is invalid or when inside an event handler
-	" (happens when dropping a file on gvim).
-	" Also don't do it when the mark is in the first line, that is the default
-	" position when opening a file.
-	autocmd BufReadPost *
-	\ if line("'\"") > 1 && line("'\"") <= line("$") |
-	\   exe "normal! g`\"" |
-	\ endif
+    " When editing a file, always jump to the last known cursor position.
+    " Don't do it when the position is invalid or when inside an event handler
+    " (happens when dropping a file on gvim).
+    " Also don't do it when the mark is in the first line, that is the default
+    " position when opening a file.
+    autocmd BufReadPost *
+    \ if line("'\"") > 1 && line("'\"") <= line("$") |
+    \   exe "normal! g`\"" |
+    \ endif
 
-	" Set filetype to tpp files
-	au BufRead,BufNewFile *.tpp setfiletype cpp.doxygen
-	au BufRead,BufNewFile *.cpp setfiletype cpp.doxygen
-	au BufRead,BufNewFile *.h setfiletype cpp.doxygen
+    " Set filetype to tpp files
+    au BufRead,BufNewFile *.tpp setfiletype cpp.doxygen
+    au BufRead,BufNewFile *.cpp setfiletype cpp.doxygen
+    au BufRead,BufNewFile *.h setfiletype cpp.doxygen
 
-	augroup pandoc_syntax
-		au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
-	augroup END
+    augroup pandoc_syntax
+        au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
+    augroup END
 
-	augroup END
+    augroup END
 
-	augroup BWCCreateDir
-		autocmd!
-		autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
-	augroup END
+    augroup BWCCreateDir
+        autocmd!
+        autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
+    augroup END
 
-	au TabLeave * let g:lasttab = tabpagenr()
+     au TabLeave * let g:lasttab = tabpagenr()
+
+    set completeopt-=preview
+    if executable('clangd')
+        au User lsp_setup call lsp#register_server({
+            \ 'name': 'clangd',
+            \ 'cmd': {server_info->['clangd']},
+            \ 'whitelist': ['c', 'cpp', 'cpp.doxygen', 'objc', 'objcpp'],
+            \ })
+    endif
+    if executable('rls')
+        au User lsp_setup call lsp#register_server({
+                \ 'name': 'rls',
+                \ 'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
+                \ 'whitelist': ['rust'],
+                \ })
+    endif
+
 
 endif
 
@@ -169,48 +200,54 @@ endif
 " file it was loaded from, thus the changes you made.
 " Only define it when not defined already.
 if !exists(":DiffOrig")
-	command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis
+    command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis
 endif
 
 function! MarkWindowSwap()
-	let g:markedWinNum = winnr()
+    let g:markedWinNum = winnr()
 endfunction
 
 function! DoWindowSwap()
-	"Mark destination
-	let curNum = winnr()
-	let curBuf = bufnr( "%" )
-	exe g:markedWinNum . "wincmd w"
-	"Switch to source and shuffle dest->source
-	let markedBuf = bufnr( "%" )
-	"Hide and open so that we aren't prompted and keep history
-	exe 'hide buf' curBuf
-	"Switch to dest and shuffle source->dest
-	exe curNum . "wincmd w"
-	"Hide and open so that we aren't prompted and keep history
-	exe 'hide buf' markedBuf
+    "Mark destination
+    let curNum = winnr()
+    let curBuf = bufnr( "%" )
+    exe g:markedWinNum . "wincmd w"
+    "Switch to source and shuffle dest->source
+    let markedBuf = bufnr( "%" )
+    "Hide and open so that we aren't prompted and keep history
+    exe 'hide buf' curBuf
+    "Switch to dest and shuffle source->dest
+    exe curNum . "wincmd w"
+    "Hide and open so that we aren't prompted and keep history
+    exe 'hide buf' markedBuf
 endfunction
 
 function! s:MkNonExDir(file, buf)
-	if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
-		let dir=fnamemodify(a:file, ':h')
-		if !isdirectory(dir)
-			call mkdir(dir, 'p')
-		endif
-	endif
+    if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
+        let dir=fnamemodify(a:file, ':h')
+        if !isdirectory(dir)
+            call mkdir(dir, 'p')
+        endif
+    endif
 endfunction
 
 function! AddFunctionBody() range
-	" Save current pos
-	let l:winview = winsaveview()
-	" Do subst
-	exe a:firstline.','.a:lastline.'s/;/ {}/'
-	" Delete trailing line
-	exe line('.').'d'
-	" Clear search pattern
-	let @/ = ""
-	" Restore pos
-	call winrestview(l:winview)
+    " Save current pos
+    let l:winview = winsaveview()
+    " Do subst
+    exe a:firstline.','.a:lastline.'s/;/ {}/'
+    " Delete trailing line
+    exe line('.').'d'
+    " Clear search pattern
+    let @/ = ""
+    " Restore pos
+    call winrestview(l:winview)
+endfunction
+
+
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 
 " Write as root
