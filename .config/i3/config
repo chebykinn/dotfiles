@@ -137,7 +137,7 @@ set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) re
 mode "$mode_system" {
     bindsym l exec --no-startup-id $Locker, mode "default"
     bindsym e exec --no-startup-id i3-msg exit, mode "default"
-    bindsym s exec --no-startup-id systemctl suspend, mode "default"
+    bindsym s exec --no-startup-id systemctl suspend && $Locker, mode "default"
     bindsym h exec --no-startup-id systemctl hibernate, mode "default"
     bindsym r exec --no-startup-id systemctl reboot, mode "default"
     bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
@@ -214,9 +214,9 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 # Capture screenshot
-bindsym --release Print exec --no-startup-id scrot -e 'mv $f ~/root/data/images/screenshots/'
-bindsym --release Shift+Print exec --no-startup-id scrot -u -e 'mv $f ~/root/data/images/screenshots/'
-bindsym --release Control+Print exec --no-startup-id gnome-screenshot -a
+bindsym --release Print exec --no-startup-id ~/.config/i3/screenshot
+bindsym --release Shift+Print exec --no-startup-id ~/.config/i3/screenshot
+bindsym --release Control+Print exec --no-startup-id ~/.config/i3/screenshot -a
 
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
@@ -238,6 +238,7 @@ for_window [instance="vlc"] move scratchpad
 
 # Floating mode fixes for some windows
 for_window [instance="ucommander"] floating enable
+for_window [instance="quest"] floating enable
 for_window [title="QEMU"] floating enable
 for_window [title="^Подтвердите"] floating enable
 for_window [title="^Покинуть"] floating enable

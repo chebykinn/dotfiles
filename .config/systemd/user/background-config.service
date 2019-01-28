@@ -1,0 +1,8 @@
+[Unit]
+Description=Background loader daemon for i3 and sway
+
+[Service]
+ExecStart=/home/ivan/.config/i3/background-config
+
+[Install]
+WantedBy=default.target

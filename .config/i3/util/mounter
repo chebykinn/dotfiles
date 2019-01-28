@@ -1,0 +1,26 @@
+#!/bin/bash
+[ -z "$XDG_RUNTIME_DIR" ] && echo "XDG_RUNTIME_DIR is not set." >&2 && exit 2
+GVFS_PATH="$XDG_RUNTIME_DIR/gvfs"
+
+gio_mount_impl() {
+    server="$1"
+    path="$2"
+    gio mount "smb://$server/$path"
+    echo "$GVFS_PATH/smb-share:server=$server,share=$path"
+}
+
+mount_home_data() {
+    gio_mount_impl "home" "data"
+}
+
+mount_home_public() {
+    gio_mount_impl "home" "public"
+}
+
+if [ ! -z "$1" ]; then
+    case "$1" in
+        home-data) mount_home_data ;;
+        home-public) mount_home_public ;;
+        *) echo "Unknown command" ;;
+    esac
+fi

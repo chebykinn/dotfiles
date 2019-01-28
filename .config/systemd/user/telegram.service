@@ -1,0 +1,9 @@
+[Unit]
+Description=Run telegram
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/telegram-desktop -startintray
+
+[Install]
+WantedBy=default.target

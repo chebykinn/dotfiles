@@ -16,7 +16,7 @@ BG_SETTER_EXECUTABLE="feh"
 BG_SETTER_CMDLINE="feh --bg-scale"
 BG_SETTER_CMDLINE_END=""
 
-if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+if pgrep sway; then
     set -f
     BG_SETTER_CMDLINE='swaymsg -t command output * bg'
     BG_SETTER_CMDLINE_END='fill'

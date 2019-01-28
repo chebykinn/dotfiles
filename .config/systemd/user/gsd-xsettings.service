@@ -1,0 +1,8 @@
+[Unit]
+Description=Gnome settings daemon
+
+[Service]
+ExecStart=/usr/lib/gsd-xsettings
+
+[Install]
+WantedBy=default.target

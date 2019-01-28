@@ -1,0 +1,8 @@
+[Unit]
+Description=Compton daemon
+
+[Service]
+ExecStart=/usr/bin/compton -C
+
+[Install]
+WantedBy=default.target

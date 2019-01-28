@@ -5,3 +5,6 @@ nm-applet                            &
 nextcloud                            &
 telegram-desktop -startintray        &
 $HOME/.config/i3/background-config   &
+
+$HOME/.config/i3/util/mounter home-data &
+$HOME/.config/i3/util/mounter home-public &

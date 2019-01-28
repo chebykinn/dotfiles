@@ -1,0 +1,8 @@
+[Unit]
+Description=Nextcloud
+
+[Service]
+ExecStart=/home/ivan/bin/nextcloud
+
+[Install]
+WantedBy=default.target

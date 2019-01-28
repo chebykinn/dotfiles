@@ -11,4 +11,5 @@
 !oh-my-zsh
 !compton.conf
 !dircolors
+!systemd
 !.gitignore

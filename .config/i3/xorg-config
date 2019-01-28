@@ -1,0 +1,11 @@
+#!/bin/sh
+
+if [ ! -z "$WAYLAND_DISPLAY" ]; then
+    "Running on wayland, exiting"
+    return
+fi
+~/.config/i3/keyboard-config
+~/.config/i3/mouse-config
+xset s off
+xset -dpms
+xset b off

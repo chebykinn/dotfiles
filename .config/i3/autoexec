@@ -1,6 +1,3 @@
 #!/bin/sh
 
-ext_dir="$0.d"
-[ -d "$ext_dir" ] && for script in "$ext_dir"/*; do
-	[ -r "$script" ] && "$script"
-done
+systemctl --user start autoexec.target

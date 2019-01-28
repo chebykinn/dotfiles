@@ -1,0 +1,8 @@
+[Unit]
+Description=Xorg stuff
+
+[Service]
+ExecStart=/home/ivan/.config/i3/xorg-config
+
+[Install]
+WantedBy=default.target
