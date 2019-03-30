@@ -16,7 +16,8 @@ BG_SETTER_EXECUTABLE="feh"
 BG_SETTER_CMDLINE="feh --bg-scale"
 BG_SETTER_CMDLINE_END=""
 
-if pgrep sway; then
+if pgrep sway >/dev/null; then
+    export SWAYSOCK=$(ls /run/user/*/sway-ipc.*.sock --color=no | head -n 1)
     set -f
     BG_SETTER_CMDLINE='swaymsg -t command output * bg'
     BG_SETTER_CMDLINE_END='fill'
