@@ -6,6 +6,10 @@
 LOCKER_EXECUTABLE="i3lock"
 LOCKER_CMDLINE="i3lock -c 000000 -i"
 LOCKER_CACHE="$HOME/.cache/i3lock"
+if pgrep sway >/dev/null; then
+    LOCKER_EXECUTABLE="swaylock"
+    LOCKER_CMDLINE="swaylock -c 000000 -i"
+fi
 
 BG_CONF_SCRIPT="$HOME/.config/i3/background-config"
 
@@ -24,7 +28,7 @@ BACKGROUND_IMG="$BACKGROUND_PATH"
 
 # Coverting jpg images to png because i3lock devs don't want to support jpg
 # Also get current resolution because it doesn't even support scaling
-if echo "$BACKGROUND_PATH" | grep -vq '\.png$'; then
+if ! pgrep sway >/dev/null && echo "$BACKGROUND_PATH" | grep -vq '\.png$'; then
     if ! command -v "convert" >/dev/null 2>&1; then
         echo >&2 "No imagemagick installed, exiting."
         exit 2
