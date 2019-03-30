@@ -23,6 +23,8 @@ set showmatch               " Briefly jump to the matching bracket when typing
 set matchtime=0
 set tags=./tags;./TAGS;./ctags;tags;TAGS;ctags
 set signcolumn=yes
+set complete-=i
+set guifont=Monospace:h10
 
 " Alternatively (in your .vimrc, to completely disable the plugin):
 let loaded_matchparen = 1
@@ -39,6 +41,9 @@ endif
 set t_Co=256
 set background=dark
 colorscheme molokai
+if &diff
+    colorscheme monokai
+endif
 
 " Allow using russian keymap in command mode
 set langmap=!\\"№\\;%?*ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;!@#$%&*`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>
@@ -59,30 +64,46 @@ set splitright
 
 let g:lasttab = 1
 
-" IndentLine plugin settings
-let g:indentLine_enabled = 0
-let g:indentLine_color_term = 239
-let g:indentLine_char = '¦' " or ▸
 " Show tabs indent
 set listchars=tab:\ \ ,trail:\·
 set list
 
 set path+=src
 set path+=src/include
+set path+=include
+set path+=h
+set path+=/usr/include/c++/8.2.1
 
 " Increase max number of tabs when opening with -p option
 set tabpagemax=100
-
-let g:easytags_async=1
 
 let g:pandoc#syntax#conceal#use = 0
 
 let g:tex_fast = ""
 
-let g:asyncomplete_smart_completion = 0
-let g:asyncomplete_auto_popup = 0
-let g:lsp_signs_enabled = 1         " enable signs
-let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
+let g:enable_lessmess_onsave = 0
+
+set hidden
+set cmdheight=2
+set updatetime=300
+set shortmess+=c
+set signcolumn=yes
+
+let g:lightline = {
+      \ 'colorscheme': 'powerline',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'cocstatus', 'readonly', 'relativepath', 'modified' ] ],
+      \   'right': [ [ 'lineinfo' ],
+      \              [ 'percent' ],
+      \              [ 'lessmess', 'fileformat', 'fileencoding', 'filetype' ] ]
+      \ },
+      \ 'component_function': {
+      \   'cocstatus': 'coc#status',
+      \   'lessmess': 'lessmess#statusline'
+      \ },
+      \ }
+
 "==============================================================================
 
 " Keymaps
@@ -110,7 +131,7 @@ nnoremap <F3> :noh<CR>
 " Trim
 nnoremap <F4> :Trim<CR>
 
-map <Leader>n <plug>NERDTreeTabsToggle<CR>
+map <Leader>n :NERDTreeTabsToggle<CR>
 
 nmap <silent> <leader>mw :call MarkWindowSwap()<CR>
 nmap <silent> <leader>pw :call DoWindowSwap()<CR>
@@ -120,14 +141,69 @@ nmap <Leader>tt :exe "tabn ".g:lasttab<CR>
 " To create a new tab
 nnoremap <C-w>t :tabnew<CR>
 inoremap <C-w>t <Esc>:tabnew<CR>
+" Only highlight word but don't jump to next
+nnoremap * m`:keepjumps normal! *``<cr>
 
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
-  \ pumvisible() ? "\<C-n>" :
-  \ <SID>check_back_space() ? "\<TAB>" :
-  \ asyncomplete#force_refresh()
-
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
+" Use <c-space> for trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[c` and `]c` for navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K for show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+"autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+vmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+vmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Use `:Format` for format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` for fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
 "==============================================================================
 
@@ -177,22 +253,39 @@ if has("autocmd")
 
      au TabLeave * let g:lasttab = tabpagenr()
 
-    set completeopt-=preview
-    if executable('clangd')
-        au User lsp_setup call lsp#register_server({
-            \ 'name': 'clangd',
-            \ 'cmd': {server_info->['clangd']},
-            \ 'whitelist': ['c', 'cpp', 'cpp.doxygen', 'objc', 'objcpp'],
-            \ })
-    endif
-    if executable('rls')
-        au User lsp_setup call lsp#register_server({
-                \ 'name': 'rls',
-                \ 'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
-                \ 'whitelist': ['rust'],
-                \ })
-    endif
-
+    "set completeopt-=preview
+    "if executable('ccls')
+        "au User lsp_setup call lsp#register_server({
+            "\ 'name': 'ccls',
+            "\ 'cmd': {server_info->['ccls']},
+            "\ 'root_uri': {server_info->lsp#utils#path_to_uri(getcwd().'/build/compile_commands.json')},
+            "\ 'initialization_options': { 'cacheDirectory': '.ccls-cache' },
+            "\ 'whitelist': ['c', 'cpp', 'cpp.doxygen', 'objc', 'objcpp', 'cc'],
+            "\ })
+    "endif
+    "if executable('cquery')
+        "au User lsp_setup call lsp#register_server({
+            "\ 'name': 'cquery',
+            "\ 'cmd': {server_info->['cquery']},
+            "\ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+            "\ 'initialization_options': { 'cacheDirectory': '/home/ivan/.cache/cquery' },
+            "\ 'whitelist': ['c', 'cpp', 'cpp.doxygen', 'objc', 'objcpp', 'cc'],
+            "\ })
+    "endif
+    "if executable('clangd')
+        "au User lsp_setup call lsp#register_server({
+            "\ 'name': 'clangd',
+            "\ 'cmd': {server_info->['clangd', '-compile-commands-dir='.getcwd().'/build']},
+            "\ 'whitelist': ['c', 'cpp', 'cpp.doxygen', 'objc', 'objcpp'],
+            "\ })
+    "endif
+    "if executable('rls')
+        "au User lsp_setup call lsp#register_server({
+                "\ 'name': 'rls',
+                "\ 'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
+                "\ 'whitelist': ['rust'],
+                "\ })
+    "endif
 
 endif
 
@@ -244,10 +337,47 @@ function! AddFunctionBody() range
     call winrestview(l:winview)
 endfunction
 
-
 function! s:check_back_space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+function! SetterFn(line, linenum)
+    let l:pod_types = '\(bool\|u\?int\([0-9]+_t\)\?\)'
+    if a:line =~ pod_types
+        exe a:linenum.'s/^\(\s*\)\([^ ]\+\)\s*m_\([a-z_]*\);\?/\1void \3(\2 new_\3) { m_\3 = new_\3; }/'
+    else
+        exe a:linenum.'s/^\(\s*\)\([^ ]\+\)\s*m_\([a-z_]*\);\?/\1void \3(const \2 \&new_\3) { m_\3 = new_\3; }/'
+    endif
+endfunction
+
+
+function! SetterFnRange() range
+    let l:lines = getline(a:firstline, a:lastline)
+    let l:cnt = a:firstline
+    for line in lines
+        call SetterFn(line, cnt)
+        let cnt += 1
+    endfor
+endfunction
+
+function! GetterFn(line, linenum)
+    let l:pod_types = '\(bool\|u\?int\([0-9]+_t\)\?\)'
+    if a:line =~ pod_types
+        exe a:linenum.'s/^\(\s*\)\([^ ]\+\)\s*m_\([a-z_]*\);\?/\1\2 \3() const { return m_\3; }/'
+    else
+        exe a:linenum.'s/^\(\s*\)\([^ ]\+\)\s*m_\([a-z_]*\);\?/\1const \2 \&\3() const { return m_\3; }/'
+    endif
+endfunction
+
+
+function! GetterFnRange() range
+    let l:lines = getline(a:firstline, a:lastline)
+    let l:cnt = a:firstline
+    for line in lines
+        call GetterFn(line, cnt)
+        let cnt += 1
+    endfor
 endfunction
 
 " Write as root
@@ -259,7 +389,24 @@ command! W w
 command! Trim %s/\(\s\|<tab>\)\+$//g|noh
 
 command! -range Fnbody <line1>,<line2>call AddFunctionBody()
+command! -range Getter <line1>,<line2>call GetterFnRange()
+command! -range Setter <line1>,<line2>call SetterFnRange()
 
 "==============================================================================
 
-execute pathogen#infect()
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+      \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin('~/.vim/bundle')
+
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeTabsToggle' }
+Plug 'jistr/vim-nerdtree-tabs', { 'on':  'NERDTreeTabsToggle' }
+Plug 'itchyny/lightline.vim'
+Plug 'scrooloose/nerdcommenter'
+Plug 'mboughaba/vim-lessmess'
+
+call plug#end()
