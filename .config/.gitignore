@@ -13,4 +13,5 @@
 !dircolors
 !systemd
 !sway
+!nvim
 !.gitignore

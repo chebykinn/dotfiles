@@ -1,0 +1,15 @@
+{
+  "languageserver": {
+    "ccls": {
+      "command": "ccls",
+      "filetypes": ["c", "cpp", "cpp.doxygen", "objc", "objcpp"],
+      "rootPatterns": [".ccls", "build/compile_commands.json", ".vim/", ".git/", ".hg/"],
+      "initializationOptions": {
+         "cache": {
+           "directory": ".ccls"
+         }
+       }
+    }
+  },
+  "coc.preferences.colorSupport": false
+}
