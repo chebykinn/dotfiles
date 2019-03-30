@@ -1,0 +1,300 @@
+# i3 config file
+
+# Set modificator to winkey, Mod1 -- Left Alt
+set $mod Mod4
+
+# Title font
+font pango: Noto Sans Bold 9
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# start a terminal
+bindsym $mod+Return exec alacritty
+
+# kill focused window
+bindsym $mod+Shift+Q kill
+
+# start program launcher
+bindsym $mod+d exec ~/.config/i3/launcher
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+H move left
+bindsym $mod+Shift+J move down
+bindsym $mod+Shift+K move up
+bindsym $mod+Shift+L move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# toggle split orientation
+bindsym $mod+v split toggle
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen
+
+# change container layout (stacked, tabbed, default)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout default
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+#bindcode $mod+d focus child
+
+set $KP_1 87
+set $KP_2 88
+set $KP_3 89
+set $KP_4 83
+set $KP_5 84
+set $KP_6 85
+set $KP_7 79
+set $KP_8 80
+set $KP_9 81
+set $KP_0 90
+
+# switch to workspace
+bindsym $mod+1 workspace 1 web
+bindsym $mod+2 workspace 2 dev
+bindsym $mod+3 workspace 3 code
+bindsym $mod+4 workspace 4 files
+bindsym $mod+5 workspace 5 term
+bindsym $mod+6 workspace 6 music
+bindsym $mod+7 workspace 7 misc
+bindsym $mod+8 workspace 8 misc
+bindsym $mod+9 workspace 9 misc
+bindsym $mod+0 workspace 10 misc
+bindcode $mod+$KP_1 workspace 1 web
+bindcode $mod+$KP_2 workspace 2 dev
+bindcode $mod+$KP_3 workspace 3 code
+bindcode $mod+$KP_4 workspace 4 files
+bindcode $mod+$KP_5 workspace 5 term
+bindcode $mod+$KP_6 workspace 6 music
+bindcode $mod+$KP_7 workspace 7 misc
+bindcode $mod+$KP_8 workspace 8 misc
+bindcode $mod+$KP_9 workspace 9 misc
+bindcode $mod+$KP_0 workspace 10 misc
+
+bindsym $mod+Control+Left workspace prev
+bindsym $mod+Control+Right workspace next
+bindsym $mod+Control+h workspace prev
+bindsym $mod+Control+l workspace next
+
+# move focused container to workspace
+#bindsym $mod+Shift+1 move workspace number 1 web
+#bindsym $mod+Shift+2 move workspace number 2 dev
+#bindsym $mod+Shift+3 move workspace number 3 code
+#bindsym $mod+Shift+4 move workspace number 4 files
+#bindsym $mod+Shift+5 move workspace number 5 term
+#bindsym $mod+Shift+6 move workspace number 6 music
+#bindsym $mod+Shift+7 move workspace number 7 misc
+#bindsym $mod+Shift+8 move workspace number 8 misc
+#bindsym $mod+Shift+9 move workspace number 9 misc
+#bindsym $mod+Shift+0 move workspace number 10 misc
+
+#bindcode $mod+Shift+$KP_1 move workspace number 1 web
+#bindcode $mod+Shift+$KP_2 move workspace number 2 dev
+#bindcode $mod+Shift+$KP_3 move workspace number 3 code
+#bindcode $mod+Shift+$KP_4 move workspace number 4 files
+#bindcode $mod+Shift+$KP_5 move workspace number 5 term
+#bindcode $mod+Shift+$KP_6 move workspace number 6 music
+#bindcode $mod+Shift+$KP_7 move workspace number 7 misc
+#bindcode $mod+Shift+$KP_8 move workspace number 8 misc
+#bindcode $mod+Shift+$KP_9 move workspace number 9 misc
+#bindcode $mod+Shift+$KP_0 move workspace number 10 misc
+#
+bindsym $mod+Shift+1 move container to workspace 1 web
+bindsym $mod+Shift+2 move container to workspace 2 dev
+bindsym $mod+Shift+3 move container to workspace 3 code
+bindsym $mod+Shift+4 move container to workspace 4 files
+bindsym $mod+Shift+5 move container to workspace 5 term
+bindsym $mod+Shift+6 move container to workspace 6 music
+bindsym $mod+Shift+7 move container to workspace 7 misc
+bindsym $mod+Shift+8 move container to workspace 8 misc
+bindsym $mod+Shift+9 move container to workspace 9 misc
+bindsym $mod+Shift+0 move container to workspace 10 misc
+
+bindcode $mod+Shift+$KP_1 move container to workspace 1 web
+bindcode $mod+Shift+$KP_2 move container to workspace 2 dev
+bindcode $mod+Shift+$KP_3 move container to workspace 3 code
+bindcode $mod+Shift+$KP_4 move container to workspace 4 files
+bindcode $mod+Shift+$KP_5 move container to workspace 5 term
+bindcode $mod+Shift+$KP_6 move container to workspace 6 music
+bindcode $mod+Shift+$KP_7 move container to workspace 7 misc
+bindcode $mod+Shift+$KP_8 move container to workspace 8 misc
+bindcode $mod+Shift+$KP_9 move container to workspace 9 misc
+bindcode $mod+Shift+$KP_0 move container to workspace 10 misc
+
+# reload the configuration file
+bindsym $mod+Shift+C reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+R restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+E exit
+
+set $Locker ~/.config/i3/locker
+
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id $Locker, mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym s exec --no-startup-id systemctl suspend, mode "default"
+    bindsym h exec --no-startup-id systemctl hibernate, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+Pause mode "$mode_system"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+    # These bindings trigger as soon as you enter the resize mode
+
+    # They resize the border in the direction you pressed, e.g.
+    # when pressing left, the window is resized so that it has
+    # more space on its left
+
+    bindsym h resize shrink left 10 px or 10 ppt
+    bindsym Shift+H resize grow   left 10 px or 10 ppt
+
+    bindsym j resize shrink down 10 px or 10 ppt
+    bindsym Shift+J resize grow   down 10 px or 10 ppt
+
+    bindsym K resize shrink up 10 px or 10 ppt
+    bindsym Shift+K resize grow   up 10 px or 10 ppt
+
+    bindsym l resize shrink right 10 px or 10 ppt
+    bindsym Shift+L resize grow   right 10 px or 10 ppt
+
+    # same bindings, but for the arrow keys
+    bindsym Left resize shrink left 10 px or 10 ppt
+    bindsym Shift+Left resize grow   left 10 px or 10 ppt
+
+    bindsym Down resize shrink down 10 px or 10 ppt
+    bindsym Shift+Down resize grow   down 10 px or 10 ppt
+
+    bindsym Up resize shrink up 10 px or 10 ppt
+    bindsym Shift+Up resize grow   up 10 px or 10 ppt
+
+    bindsym Right resize shrink right 10 px or 10 ppt
+    bindsym Shift+Right resize grow   right 10 px or 10 ppt
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+# music
+bindsym $mod+comma  exec --no-startup-id ~/.config/i3/sound-control down
+bindsym $mod+period exec --no-startup-id ~/.config/i3/sound-control up
+bindsym $mod+p      exec --no-startup-id ~/.config/i3/sound-control toggle-player
+
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.config/i3/sound-control up
+bindsym XF86AudioLowerVolume exec --no-startup-id ~/.config/i3/sound-control down
+bindsym XF86AudioMute        exec --no-startup-id ~/.config/i3/sound-control mute
+bindsym $mod+m               exec --no-startup-id ~/.config/i3/sound-control mute
+
+# Sreen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
+
+# Touchpad controls
+bindsym XF86TouchpadToggle exec ~/.config/i3/toggletouchpad.sh # toggle touchpad
+
+# Media player controls
+bindsym XF86AudioPlay exec playerctl play
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+# Capture screenshot
+bindsym --release Print exec --no-startup-id scrot -e 'mv $f ~/root/data/images/screenshots/'
+bindsym --release Shift+Print exec --no-startup-id scrot -u -e 'mv $f ~/root/data/images/screenshots/'
+bindsym --release Control+Print exec --no-startup-id gnome-screenshot -a
+
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+
+bindsym $mod+z [app_id="telegram-desktop"] scratchpad show
+bindsym $mod+x [instance="vlc"] scratchpad show
+bindsym $mod+c [instance="nextcloud"] scratchpad show
+
+workspace_auto_back_and_forth yes
+hide_edge_borders --i3 both
+
+focus_follows_mouse yes
+
+# Launch autoexec scripts
+exec --no-startup-id ~/.config/i3/autoexec
+
+# Scratchpad apps
+for_window [instance="nextcloud"] move scratchpad
+for_window [app_id="telegram-desktop"] move scratchpad
+for_window [instance="vlc"] move scratchpad
+
+# Floating mode fixes for some windows
+for_window [instance="ucommander"] floating enable
+for_window [title="QEMU"] floating enable
+for_window [title="^Подтвердите"] floating enable
+for_window [title="^Покинуть"] floating enable
+for_window [class="^Pidgin$" window_role="^buddy_list$"] move left
+for_window [class="^Pidgin$" window_role="^conversation$"] resize grow width 0 px or 30 ppt; move left
+
+# Disable window titles
+for_window [class="^.*"] border pixel 1
+new_window pixel
+
+# Disable scrolling containers with mouse wheel
+bindsym button4 nop
+bindsym button5 nop
+
+input 1241:36:HOLDCHIP_USB_Gaming_Keyboard {
+    xkb_layout "us,ru"
+    xkb_options "grp:caps_toggle,grp_led:scroll"
+    repeat_delay 250
+    repeat_rate 50
+}
+
+input 9610:4103:SINOWEALTH_Game_Mouse {
+    pointer_accel -0.8
+}
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+    # Disable scrolling workspaces with mouse wheel
+    #wheel_up_cmd nop
+    #wheel_down_cmd nop
+    status_command py3status
+    font pango: Noto Sans Bold 9
+}

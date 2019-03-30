@@ -12,4 +12,5 @@
 !compton.conf
 !dircolors
 !systemd
+!sway
 !.gitignore
