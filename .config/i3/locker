@@ -42,7 +42,7 @@ if ! pgrep sway >/dev/null && echo "$BACKGROUND_PATH" | grep -vq '\.png$'; then
 
     mkdir -p "$LOCKER_CACHE"
     BACKGROUND_IMG="$LOCKER_CACHE/$(basename $BACKGROUND_PATH).png"
-    [ ! -f "$BACKGROUND_IMG" ] && convert -scale "$SCALE" "$BACKGROUND_PATH" "$BACKGROUND_IMG"
+    [ ! -f "$BACKGROUND_IMG" ] && convert -scale "$SCALE!" "$BACKGROUND_PATH" "$BACKGROUND_IMG"
 fi
 
 $LOCKER_CMDLINE "$BACKGROUND_IMG"
