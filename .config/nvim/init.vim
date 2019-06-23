@@ -96,11 +96,13 @@ let g:lightline = {
       \             [ 'cocstatus', 'readonly', 'relativepath', 'modified' ] ],
       \   'right': [ [ 'lineinfo' ],
       \              [ 'percent' ],
-      \              [ 'lessmess', 'fileformat', 'fileencoding', 'filetype' ] ]
+      \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
+      \ },
+      \ 'inactive': {
+      \   'left': [ [ 'relativepath' ] ]
       \ },
       \ 'component_function': {
-      \   'cocstatus': 'coc#status',
-      \   'lessmess': 'lessmess#statusline'
+      \   'cocstatus': 'coc#status'
       \ },
       \ }
 
@@ -169,17 +171,6 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" Use K for show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if &filetype == 'vim'
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
 " Highlight symbol under cursor on CursorHold
 "autocmd CursorHold * silent call CocActionAsync('highlight')
 
@@ -202,6 +193,12 @@ nmap <leader>qf  <Plug>(coc-fix-current)
 " Workaround to prevent escape not working since i'm not using alt bindings
 " anyway
 inoremap <M-Up> <Esc>
+
+" Disable man search
+map K <Nop>
+
+" Insert new line in command mode
+nmap <C-o> o<Esc>
 
 " Use `:Format` for format current buffer
 command! -nargs=0 Format :call CocAction('format')
@@ -412,5 +409,6 @@ Plug 'jistr/vim-nerdtree-tabs', { 'on':  'NERDTreeTabsToggle' }
 Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'mboughaba/vim-lessmess'
+Plug 'tpope/vim-fugitive'
 
 call plug#end()

@@ -2,12 +2,14 @@
   "languageserver": {
     "ccls": {
       "command": "ccls",
+      "args": ["--log-file=/tmp/ccls.log", "-v=1"],
       "filetypes": ["c", "cpp", "cpp.doxygen", "objc", "objcpp"],
-      "rootPatterns": [".ccls", "build/compile_commands.json", ".vim/", ".git/", ".hg/"],
+      "rootPatterns": [".ccls", ".vim/", ".git/", ".hg/"],
       "initializationOptions": {
          "cache": {
-           "directory": ".ccls"
-         }
+           "directory": "/tmp/ccls"
+         },
+         "compilationDatabaseDirectory": "build"
        }
     }
   },
