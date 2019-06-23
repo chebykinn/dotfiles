@@ -13,5 +13,6 @@
        }
     }
   },
-  "coc.preferences.colorSupport": false
+  "coc.preferences.colorSupport": false,
+  "python.jediEnabled": false
 }
