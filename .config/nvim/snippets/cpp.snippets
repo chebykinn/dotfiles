@@ -1,0 +1,31 @@
+# if
+snippet if
+	if (${1:true}) {
+	${0:${VISUAL}}
+	}
+# if else
+snippet ife
+	if (${1:true}) {
+	${0:${VISUAL}}
+	} else {
+	${0}
+	}
+# else
+snippet else
+	else {
+	${0:${VISUAL}}
+	}
+## Functions
+# function declaration
+snippet fund
+	${1:void} ${2:function_name}(${3});
+# function definition
+snippet fun
+	${1:void} ${2:function_name}(${3}) {
+		${4}
+	}
+# member function definition
+snippet mfun
+	${1:void} ${2:ClassName}::${3:memberFunction}(${4}) {
+		${0}
+	}
