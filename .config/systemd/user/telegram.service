@@ -3,7 +3,7 @@ Description=Run telegram
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/telegram-desktop -startintray
+ExecStart=/usr/bin/telegram-desktop
 
 [Install]
 WantedBy=default.target

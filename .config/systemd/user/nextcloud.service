@@ -2,7 +2,7 @@
 Description=Nextcloud
 
 [Service]
-ExecStart=/home/ivan/bin/nextcloud
+ExecStart=%h/bin/nextcloud
 
 [Install]
 WantedBy=default.target

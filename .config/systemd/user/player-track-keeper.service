@@ -3,7 +3,7 @@ Description=Player Track Keeper
 
 [Service]
 Restart=on-failure
-ExecStart=/home/ivan/.config/i3/util/player-track-keeper.py
+ExecStart=%h/.config/i3/util/player-track-keeper.py
 
 [Install]
 WantedBy=default.target

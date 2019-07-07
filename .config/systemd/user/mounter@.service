@@ -3,7 +3,7 @@ Description=GIO Mounter at %I
 
 [Service]
 Type=oneshot
-ExecStart=/home/ivan/.config/i3/util/mounter %i
+ExecStart=%h/.config/i3/util/mounter %i
 
 [Install]
 WantedBy=default.target
