@@ -2,17 +2,20 @@
   "languageserver": {
     "ccls": {
       "command": "ccls",
-      "args": ["--log-file=/tmp/ccls.log", "-v=1"],
       "filetypes": ["c", "cpp", "cpp.doxygen", "objc", "objcpp"],
       "rootPatterns": [".ccls", ".vim/", ".git/", ".hg/"],
       "initializationOptions": {
          "cache": {
-           "directory": "/tmp/ccls"
+           "directory": "/home/ichebykin/.cache/ccls"
          },
-         "compilationDatabaseDirectory": "build"
+         "compilationDatabaseDirectory": "build",
+         "index": {
+           "threads": 6
+         }
        }
     }
   },
   "coc.preferences.colorSupport": false,
-  "python.jediEnabled": false
+  "python.jediEnabled": false,
+  "python.linting.flake8Enabled": true
 }

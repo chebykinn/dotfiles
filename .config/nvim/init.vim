@@ -51,6 +51,7 @@ set langmap=!\\"№\\;%?*ёйцукенгшщзхъфывапролджэячс�
 " Airline settings
 let g:airline_theme = 'badwolf'
 let g:airline#extensions#whitespace#mixed_indent_algo = 2
+let g:airline#extensions#branch#enabled = 0
 set laststatus=2
 set ttimeoutlen=50          " Timeout for airline mode switching
 
@@ -72,7 +73,7 @@ set path+=src
 set path+=src/include
 set path+=include
 set path+=h
-set path+=/usr/include/c++/8.2.1
+set runtimepath+=~/.config/nvim/snippets
 
 " Increase max number of tabs when opening with -p option
 set tabpagemax=100
@@ -81,8 +82,6 @@ let g:pandoc#syntax#conceal#use = 0
 
 let g:tex_fast = ""
 
-let g:enable_lessmess_onsave = 0
-
 set hidden
 set cmdheight=2
 set updatetime=300
@@ -90,22 +89,8 @@ set shortmess+=c
 set signcolumn=yes
 set clipboard=unnamedplus
 
-let g:lightline = {
-      \ 'colorscheme': 'powerline',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'cocstatus', 'readonly', 'relativepath', 'modified' ] ],
-      \   'right': [ [ 'lineinfo' ],
-      \              [ 'percent' ],
-      \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
-      \ },
-      \ 'inactive': {
-      \   'left': [ [ 'relativepath' ] ]
-      \ },
-      \ 'component_function': {
-      \   'cocstatus': 'coc#status'
-      \ },
-      \ }
+" [Buffers] Jump to the existing window if possible
+let g:fzf_buffers_jump = 1
 
 "==============================================================================
 
@@ -163,14 +148,14 @@ inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Use `[c` and `]c` for navigate diagnostics
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
+nmap <silent> <leader>[c <Plug>(coc-diagnostic-prev)
+nmap <silent> <leader>]c <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+nmap <silent> <leader>gd <Plug>(coc-definition)
+nmap <silent> <leader>gy <Plug>(coc-type-definition)
+nmap <silent> <leader>gi <Plug>(coc-implementation)
+nmap <silent> <leader>gr <Plug>(coc-references)
 
 " Highlight symbol under cursor on CursorHold
 "autocmd CursorHold * silent call CocActionAsync('highlight')
@@ -198,8 +183,30 @@ inoremap <M-Up> <Esc>
 " Disable man search
 map K <Nop>
 
-" Insert new line in command mode
-nmap <C-o> o<Esc>
+nmap j gj
+nmap k gk
+
+" Switch to header
+nmap <leader>hc :A<CR>
+nmap <leader>hs :AS<CR>
+nmap <leader>hv :AV<CR>
+nmap <leader>ht :AT<CR>
+nmap <leader>hn :AN<CR>
+
+" Use <C-l> for trigger snippet expand.
+imap <C-l> <Plug>(coc-snippets-expand)
+
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
 
 " Use `:Format` for format current buffer
 command! -nargs=0 Format :call CocAction('format')
@@ -253,41 +260,7 @@ if has("autocmd")
         autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
     augroup END
 
-     au TabLeave * let g:lasttab = tabpagenr()
-
-    "set completeopt-=preview
-    "if executable('ccls')
-        "au User lsp_setup call lsp#register_server({
-            "\ 'name': 'ccls',
-            "\ 'cmd': {server_info->['ccls']},
-            "\ 'root_uri': {server_info->lsp#utils#path_to_uri(getcwd().'/build/compile_commands.json')},
-            "\ 'initialization_options': { 'cacheDirectory': '.ccls-cache' },
-            "\ 'whitelist': ['c', 'cpp', 'cpp.doxygen', 'objc', 'objcpp', 'cc'],
-            "\ })
-    "endif
-    "if executable('cquery')
-        "au User lsp_setup call lsp#register_server({
-            "\ 'name': 'cquery',
-            "\ 'cmd': {server_info->['cquery']},
-            "\ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
-            "\ 'initialization_options': { 'cacheDirectory': '/home/ivan/.cache/cquery' },
-            "\ 'whitelist': ['c', 'cpp', 'cpp.doxygen', 'objc', 'objcpp', 'cc'],
-            "\ })
-    "endif
-    "if executable('clangd')
-        "au User lsp_setup call lsp#register_server({
-            "\ 'name': 'clangd',
-            "\ 'cmd': {server_info->['clangd', '-compile-commands-dir='.getcwd().'/build']},
-            "\ 'whitelist': ['c', 'cpp', 'cpp.doxygen', 'objc', 'objcpp'],
-            "\ })
-    "endif
-    "if executable('rls')
-        "au User lsp_setup call lsp#register_server({
-                "\ 'name': 'rls',
-                "\ 'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
-                "\ 'whitelist': ['rust'],
-                "\ })
-    "endif
+    au TabLeave * let g:lasttab = tabpagenr()
 
 endif
 
@@ -344,44 +317,6 @@ function! s:check_back_space() abort
     return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 
-function! SetterFn(line, linenum)
-    let l:pod_types = '\(bool\|u\?int\([0-9]+_t\)\?\)'
-    if a:line =~ pod_types
-        exe a:linenum.'s/^\(\s*\)\([^ ]\+\)\s*m_\([a-z_]*\);\?/\1void \3(\2 new_\3) { m_\3 = new_\3; }/'
-    else
-        exe a:linenum.'s/^\(\s*\)\([^ ]\+\)\s*m_\([a-z_]*\);\?/\1void \3(const \2 \&new_\3) { m_\3 = new_\3; }/'
-    endif
-endfunction
-
-
-function! SetterFnRange() range
-    let l:lines = getline(a:firstline, a:lastline)
-    let l:cnt = a:firstline
-    for line in lines
-        call SetterFn(line, cnt)
-        let cnt += 1
-    endfor
-endfunction
-
-function! GetterFn(line, linenum)
-    let l:pod_types = '\(bool\|u\?int\([0-9]+_t\)\?\)'
-    if a:line =~ pod_types
-        exe a:linenum.'s/^\(\s*\)\([^ ]\+\)\s*m_\([a-z_]*\);\?/\1\2 \3() const { return m_\3; }/'
-    else
-        exe a:linenum.'s/^\(\s*\)\([^ ]\+\)\s*m_\([a-z_]*\);\?/\1const \2 \&\3() const { return m_\3; }/'
-    endif
-endfunction
-
-
-function! GetterFnRange() range
-    let l:lines = getline(a:firstline, a:lastline)
-    let l:cnt = a:firstline
-    for line in lines
-        call GetterFn(line, cnt)
-        let cnt += 1
-    endfor
-endfunction
-
 " Write as root
 command! Sw w !sudo tee % >/dev/null
 
@@ -407,9 +342,12 @@ call plug#begin('~/.config/nvim/bundle')
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeTabsToggle' }
 Plug 'jistr/vim-nerdtree-tabs', { 'on':  'NERDTreeTabsToggle' }
-Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdcommenter'
-Plug 'mboughaba/vim-lessmess'
 Plug 'tpope/vim-fugitive'
+Plug 'junegunn/fzf', { 'dir': '~/.local/share/fzf', 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
+Plug 'vim-scripts/a.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 call plug#end()
