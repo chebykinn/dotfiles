@@ -2,6 +2,11 @@
 
 " Variables
 
+let vimdir = $HOME.'/.vim'
+if has("nvim")
+  let vimdir = $HOME.'/.config/nvim'
+endif
+
 set nocompatible
 set backspace=indent,eol,start      " backspacing over everything in insert
 set backup                          " keep a backup file
@@ -66,14 +71,10 @@ set splitright
 let g:lasttab = 1
 
 " Show tabs indent
-set listchars=tab:\ \ ,trail:\·
-set list
+ set listchars=tab:\ \ ,trail:\·
+ set list
 
-set path+=src
-set path+=src/include
-set path+=include
-set path+=h
-set runtimepath+=~/.config/nvim/snippets
+let &runtimepath = &runtimepath.','.vimdir.'/snippets'
 
 " Increase max number of tabs when opening with -p option
 set tabpagemax=100
@@ -87,7 +88,7 @@ set cmdheight=2
 set updatetime=300
 set shortmess+=c
 set signcolumn=yes
-set clipboard=unnamedplus
+set clipboard=unnamed,unnamedplus
 
 " [Buffers] Jump to the existing window if possible
 let g:fzf_buffers_jump = 1
@@ -120,9 +121,6 @@ nnoremap <F3> :noh<CR>
 nnoremap <F4> :Trim<CR>
 
 map <Leader>n :NERDTreeTabsToggle<CR>
-
-nmap <silent> <leader>mw :call MarkWindowSwap()<CR>
-nmap <silent> <leader>pw :call DoWindowSwap()<CR>
 
 nmap <Leader>tt :exe "tabn ".g:lasttab<CR>
 
@@ -176,9 +174,11 @@ nmap <leader>ac  <Plug>(coc-codeaction)
 " Fix autofix problem of current line
 nmap <leader>qf  <Plug>(coc-fix-current)
 
-" Workaround to prevent escape not working since i'm not using alt bindings
-" anyway
-inoremap <M-Up> <Esc>
+if has("nvim")
+    " Workaround to prevent escape not working since i'm not using alt bindings
+    " anyway
+    inoremap <M-Up> <Esc>
+endif
 
 " Disable man search
 map K <Nop>
@@ -198,12 +198,6 @@ imap <C-l> <Plug>(coc-snippets-expand)
 
 " Use <C-j> for select text for visual placeholder of snippet.
 vmap <C-j> <Plug>(coc-snippets-select)
-
-" Use <C-j> for jump to next placeholder, it's default of coc.nvim
-let g:coc_snippet_next = '<c-j>'
-
-" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-let g:coc_snippet_prev = '<c-k>'
 
 " Use <C-j> for both expand and jump (make expand higher priority.)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
@@ -244,10 +238,9 @@ if has("autocmd")
     \   exe "normal! g`\"" |
     \ endif
 
-    " Set filetype to tpp files
-    au BufRead,BufNewFile *.tpp setfiletype cpp.doxygen
-    au BufRead,BufNewFile *.cpp setfiletype cpp.doxygen
-    au BufRead,BufNewFile *.h setfiletype cpp.doxygen
+    " Set filetype to c++ files
+    au BufRead,BufNewFile *.c,*.cc,*.cpp,*.cxx,*.h,*.hpp,*.hxx set filetype=cpp.doxygen
+    au FileType gitcommit set cc=72
 
     augroup pandoc_syntax
         au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
@@ -264,32 +257,6 @@ if has("autocmd")
 
 endif
 
-" Convenient command to see the difference between the current buffer and the
-" file it was loaded from, thus the changes you made.
-" Only define it when not defined already.
-if !exists(":DiffOrig")
-    command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis
-endif
-
-function! MarkWindowSwap()
-    let g:markedWinNum = winnr()
-endfunction
-
-function! DoWindowSwap()
-    "Mark destination
-    let curNum = winnr()
-    let curBuf = bufnr( "%" )
-    exe g:markedWinNum . "wincmd w"
-    "Switch to source and shuffle dest->source
-    let markedBuf = bufnr( "%" )
-    "Hide and open so that we aren't prompted and keep history
-    exe 'hide buf' curBuf
-    "Switch to dest and shuffle source->dest
-    exe curNum . "wincmd w"
-    "Hide and open so that we aren't prompted and keep history
-    exe 'hide buf' markedBuf
-endfunction
-
 function! s:MkNonExDir(file, buf)
     if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
         let dir=fnamemodify(a:file, ':h')
@@ -297,19 +264,6 @@ function! s:MkNonExDir(file, buf)
             call mkdir(dir, 'p')
         endif
     endif
-endfunction
-
-function! AddFunctionBody() range
-    " Save current pos
-    let l:winview = winsaveview()
-    " Do subst
-    exe a:firstline.','.a:lastline.'s/;/ {}/'
-    " Delete trailing line
-    exe line('.').'d'
-    " Clear search pattern
-    let @/ = ""
-    " Restore pos
-    call winrestview(l:winview)
 endfunction
 
 function! s:check_back_space() abort
@@ -325,19 +279,15 @@ command! W w
 " Trim trailing spaces and tabs
 command! Trim %s/\(\s\|<tab>\)\+$//g|noh
 
-command! -range Fnbody <line1>,<line2>call AddFunctionBody()
-command! -range Getter <line1>,<line2>call GetterFnRange()
-command! -range Setter <line1>,<line2>call SetterFnRange()
-
 "==============================================================================
 
-if empty(glob('~/.config/nvim/autoload/plug.vim'))
-  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
-      \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+if empty(glob(vimdir.'/autoload/plug.vim'))
+  silent execute "!curl -fLo ".shellescape(vimdir.'/autoload/plug.vim')." --create-dirs
+      \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-call plug#begin('~/.config/nvim/bundle')
+call plug#begin(vimdir.'/bundle')
 
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeTabsToggle' }
