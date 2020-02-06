@@ -16,7 +16,7 @@ COMPLETION_WAITING_DOTS="true"
 CASE_SENSITIVE="true"
 
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git archlinux)
+plugins=(git archlinux tmux)
 
 setopt APPEND_HISTORY # Don't erase history
 setopt EXTENDED_HISTORY # Add additional data to history like timestamp
@@ -30,5 +30,11 @@ ZSH_CACHE_DIR="$XDG_CACHE_HOME/oh-my-zsh"
 if [[ ! -d $ZSH_CACHE_DIR ]]; then
 	mkdir $ZSH_CACHE_DIR
 fi
+
+ZSH_TMUX_AUTOSTART="true"
+ZSH_TMUX_AUTOCONNECT="false"
+ZSH_TMUX_FIXTERM="true"
+# ZSH_TMUX_FIXTERM_WITHOUT_256COLOR="screen-256color"
+# ZSH_TMUX_FIXTERM_WITH_256COLOR="screen-256color"
 
 source $ZSH/oh-my-zsh.sh
