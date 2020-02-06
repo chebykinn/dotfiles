@@ -1,5 +1,4 @@
 "==============================================================================
-
 " Variables
 
 let vimdir = $HOME.'/.vim'
@@ -71,8 +70,8 @@ set splitright
 let g:lasttab = 1
 
 " Show tabs indent
- set listchars=tab:\ \ ,trail:\·
- set list
+set listchars=tab:\ \ ,trail:\·
+set list
 
 let &runtimepath = &runtimepath.','.vimdir.'/snippets'
 
@@ -93,8 +92,13 @@ set clipboard=unnamed,unnamedplus
 " [Buffers] Jump to the existing window if possible
 let g:fzf_buffers_jump = 1
 
-"==============================================================================
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+set indentkeys-=<:>
 
+let g:clang_format#detect_style_file = 1
+
+"==============================================================================
 " Keymaps
 
 
@@ -109,16 +113,15 @@ inoremap <C-U> <C-G>u<C-U>
 set pastetoggle=<F2>
 let mapleader=","
 
-" Use CTRL-S for saving, also in Insert mode
-noremap <C-S> :update<CR>
-vnoremap <C-S> <C-C>:update<CR>
-inoremap <C-S> <C-O>:update<CR>
-
 " Cancel highlighting after search
 nnoremap <F3> :noh<CR>
+nnoremap <leader>nh :noh<CR>
 
 " Trim
 nnoremap <F4> :Trim<CR>
+nnoremap <leader>tr :Trim<CR>
+
+map <leader>pt :set paste!<CR>
 
 map <Leader>n :NERDTreeTabsToggle<CR>
 
@@ -164,7 +167,6 @@ nmap <leader>rn <Plug>(coc-rename)
 " Remap for format selected region
 vmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
-
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
 vmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>a  <Plug>(coc-codeaction-selected)
@@ -202,6 +204,16 @@ vmap <C-j> <Plug>(coc-snippets-select)
 " Use <C-j> for both expand and jump (make expand higher priority.)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
 
+nmap F :FZF<CR>
+nmap <leader>fn :FZF<CR>
+nmap <leader>fb :Buffers<CR>
+
+if has("autocmd")
+  au FileType cpp.doxygen nnoremap <buffer> <Leader>mf :<C-u>ClangFormat<CR>
+  au FileType cpp.doxygen vnoremap <buffer> <Leader>mf :ClangFormat<CR>
+endif
+
+
 " Use `:Format` for format current buffer
 command! -nargs=0 Format :call CocAction('format')
 
@@ -209,7 +221,6 @@ command! -nargs=0 Format :call CocAction('format')
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
 "==============================================================================
-
 " Commands
 
 
@@ -246,8 +257,6 @@ if has("autocmd")
         au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
     augroup END
 
-    augroup END
-
     augroup BWCCreateDir
         autocmd!
         autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
@@ -255,6 +264,7 @@ if has("autocmd")
 
     au TabLeave * let g:lasttab = tabpagenr()
 
+    augroup END
 endif
 
 function! s:MkNonExDir(file, buf)
@@ -289,15 +299,19 @@ endif
 
 call plug#begin(vimdir.'/bundle')
 
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+Plug 'neoclide/coc.nvim', { 'tag': '*', 'branch': 'release' }
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeTabsToggle' }
 Plug 'jistr/vim-nerdtree-tabs', { 'on':  'NERDTreeTabsToggle' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-abolish'
 Plug 'junegunn/fzf', { 'dir': '~/.local/share/fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'vim-scripts/a.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'tpope/vim-unimpaired'
+Plug 'vim-scripts/close-duplicate-tabs'
+Plug 'rhysd/vim-clang-format'
 
 call plug#end()

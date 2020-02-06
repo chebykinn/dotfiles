@@ -1,13 +1,13 @@
 #!/bin/bash
-IMG_PATH="$HOME/root/data/images/screenshots/"
+IMG_PATH="$HOME/root/data/images/screenshots"
 [ ! -f "$IMG_PATH" ] && mkdir -p "$IMG_PATH"
 OUT_FILENAME="$IMG_PATH/$(date +'%Y-%m-%d-%H%M%S_area.png')"
 AREA_SHOT_CMDLINE="gnome-screenshot -a -f $OUT_FILENAME"
 SHOT_CMDLINE="scrot -e 'mv \$f $OUT_FILENAME'"
 
-if pgrep sway; then
-    AREA_SHOT_CMDLINE="slurp | grim -g - $OUT_FILENAME"
-    SHOT_CMDLINE="grim $OUT_FILENAME"
+if [ ! -z "$WAYLAND_DISPLAY" ]; then
+  AREA_SHOT_CMDLINE="slurp | grim -g - $OUT_FILENAME"
+  SHOT_CMDLINE="grim $OUT_FILENAME"
 fi
 
 IS_AREA=0
@@ -17,7 +17,8 @@ case "$1" in
 esac
 
 if [ "$IS_AREA" -eq 1 ]; then
-    $AREA_SHOT_CMDLINE
+    echo "$AREA_SHOT_CMDLINE"
+    sh -c "$AREA_SHOT_CMDLINE"
     exit
 fi
 

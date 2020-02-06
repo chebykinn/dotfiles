@@ -11,6 +11,7 @@ floating_modifier $mod
 
 # start a terminal
 bindsym --to-code $mod+Return exec alacritty
+bindsym --to-code $mod+Shift+Return exec gnome-terminal
 
 # kill focused window
 bindsym --to-code $mod+Shift+Q kill
@@ -64,6 +65,10 @@ bindsym --to-code $mod+a focus parent
 
 # focus the child container
 #bindcode $mod+d focus child
+#
+set $LEFT_OUTPUT DP-3
+set $RIGHT_OUTPUT DP-1
+set $FALLBACK_OUTPUT eDP-1
 
 set $KP_1 87
 set $KP_2 88
@@ -75,6 +80,17 @@ set $KP_7 79
 set $KP_8 80
 set $KP_9 81
 set $KP_0 90
+
+workspace 1 web output $RIGHT_OUTPUT $FALLBACK_OUTPUT
+workspace 2 dev output $LEFT_OUTPUT $FALLBACK_OUTPUT
+workspace 3 code output $RIGHT_OUTPUT $FALLBACK_OUTPUT
+workspace 4 files output $RIGHT_OUTPUT $FALLBACK_OUTPUT
+workspace 5 term output $LEFT_OUTPUT $FALLBACK_OUTPUT
+workspace 6 music output $RIGHT_OUTPUT $FALLBACK_OUTPUT
+workspace 7 misc output $RIGHT_OUTPUT $FALLBACK_OUTPUT
+workspace 8 misc output $RIGHT_OUTPUT $FALLBACK_OUTPUT
+workspace 9 misc output $RIGHT_OUTPUT $FALLBACK_OUTPUT
+workspace 10 misc output $FALLBACK_OUTPUT
 
 # switch to workspace
 bindsym --to-code $mod+1 workspace 1 web
@@ -161,7 +177,7 @@ set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) re
 mode "$mode_system" {
     bindsym --to-code l exec --no-startup-id $Locker, mode "default"
     bindsym --to-code e exec --no-startup-id i3-msg exit, mode "default"
-    bindsym --to-code s exec --no-startup-id systemctl suspend, mode "default"
+    bindsym --to-code s exec --no-startup-id $Locker && systemctl suspend, mode "default"
     bindsym --to-code h exec --no-startup-id systemctl hibernate, mode "default"
     bindsym --to-code r exec --no-startup-id systemctl reboot, mode "default"
     bindsym --to-code Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
@@ -228,8 +244,8 @@ bindsym --to-code XF86AudioMute        exec --no-startup-id ~/.config/i3/sound-c
 bindsym --to-code $mod+m               exec --no-startup-id ~/.config/i3/sound-control mute
 
 # Sreen brightness controls
-bindsym --to-code XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
-bindsym --to-code XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
+bindsym --to-code XF86MonBrightnessUp exec brightnessctl s +10%
+bindsym --to-code XF86MonBrightnessDown exec brightnessctl s 10%-
 
 # Touchpad controls
 bindsym --to-code XF86TouchpadToggle exec ~/.config/i3/toggletouchpad.sh # toggle touchpad
@@ -241,14 +257,23 @@ bindsym --to-code XF86AudioNext exec playerctl next
 bindsym --to-code XF86AudioPrev exec playerctl previous
 
 # Capture screenshot
-bindsym --to-code --release Print exec --no-startup-id scrot -e 'mv $f ~/root/data/images/screenshots/'
-bindsym --to-code --release Shift+Print exec --no-startup-id scrot -u -e 'mv $f ~/root/data/images/screenshots/'
-bindsym --to-code --release Control+Print exec --no-startup-id gnome-screenshot -a
+bindsym --release Print exec --no-startup-id ~/.config/i3/screenshot
+bindsym --release Shift+Print exec --no-startup-id ~/.config/i3/screenshot
+bindsym --release Control+Print exec --no-startup-id ~/.config/i3/screenshot -a
+
+exec swayidle \
+   timeout 1800 $Locker \
+   before-sleep $Locker
+# exec swayidle \
+   # timeout 900 $Locker \
+   # timeout 600 'swaymsg "output * dpms off"' \
+   # resume 'swaymsg "output * dpms on"' \
+   # before-sleep $Locker
 
 bindsym --to-code $mod+Shift+minus move scratchpad
 bindsym --to-code $mod+minus scratchpad show
 
-bindsym --to-code $mod+z [app_id="telegram-desktop"] scratchpad show
+bindsym --to-code $mod+z [app_id="org.telegram.desktop"] scratchpad show
 bindsym --to-code $mod+x [instance="vlc"] scratchpad show
 bindsym --to-code $mod+c [instance="nextcloud"] scratchpad show
 
@@ -262,7 +287,7 @@ exec --no-startup-id ~/.config/i3/autoexec
 
 # Scratchpad apps
 for_window [instance="nextcloud"] move scratchpad
-for_window [app_id="telegram-desktop"] move scratchpad
+for_window [app_id="org.telegram.desktop"] move scratchpad
 for_window [instance="vlc"] move scratchpad
 
 # Floating mode fixes for some windows
@@ -281,20 +306,32 @@ default_border pixel
 bindsym --to-code button4 nop
 bindsym --to-code button5 nop
 
-input 1241:36:HOLDCHIP_USB_Gaming_Keyboard {
+input * {
     xkb_layout "us,ru"
     xkb_options "grp:caps_toggle,grp_led:scroll"
     repeat_delay 250
     repeat_rate 50
+    tap enabled
+    xkb_numlock enabled
 }
 
 input 9610:4103:SINOWEALTH_Game_Mouse {
     pointer_accel -0.8
 }
 
-output DP-1 {
-    scale 1.25
+output $LEFT_OUTPUT {
     pos 0,0
+    scale 1.25
+}
+
+output $RIGHT_OUTPUT {
+    pos 2048,0
+    scale 1.25
+}
+
+output eDP-1 {
+    pos 4096,0
+    #pos 0,0
 }
 
 # Start i3bar to display a workspace bar (plus the system information i3status

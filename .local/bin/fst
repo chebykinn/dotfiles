@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+# Fuzzy git status selector
+
+if ! command -v "fzf" >/dev/null 2>&1; then
+    echo >&2 "No fzf installed, exiting."
+    exit 2
+fi
+
+if ! command -v "git" >/dev/null 2>&1; then
+    echo >&2 "No git installed, exiting."
+    exit 2
+fi
+
+if ! command -v "xclip" >/dev/null 2>&1 && [ -z "$WAYLAND_DISPLAY" ]; then
+    echo >&2 "No xclip installed, exiting."
+    exit 2
+fi
+
+if ! command -v "wl-copy" >/dev/null 2>&1 && [ ! -z "$WAYLAND_DISPLAY" ]; then
+    echo >&2 "No wl-copy installed, exiting."
+    exit 2
+fi
+
+CLIP="xclip -selection clipboard"
+if [ ! -z "$WAYLAND_DISPLAY" ]; then
+  CLIP="wl-copy"
+fi
+
+MAX_ROWS="$(tput lines)"
+STATUS="$(git status -sb)"
+LINES="$(echo "$STATUS" | wc -l)"
+LINES=$((LINES + 2))
+if [ "$LINES" -ge "$MAX_ROWS" ]; then
+  LINES="$((MAX_ROWS))"
+fi
+
+echo "$STATUS" | fzf --tac -m --height="$LINES" | awk '{print $2}' | tr '\n' ' ' | $CLIP
