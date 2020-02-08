@@ -3,7 +3,7 @@
 ps_salt="uuuuuuuuuuuuu"
 # ps_salt="manyshellcolors"
 
-ps_color="$((0x$( (echo "$ps_salt"; echo $i) | sha256sum | cut -f1 -d' ' | tr -d '\n' | tail -c2)))"
+ps_color="$((0x$( (echo "$ps_salt"; hostname) | sha256sum | cut -f1 -d' ' | tr -d '\n' | tail -c2)))"
 if [ "$ps_color" -le 10 ]; then
   ps_color="$((ps_color + 30))"
 fi
@@ -22,7 +22,7 @@ if [ "$UID" -eq 0 ]; then
 fi
 
 if [[ "$TERM" != "dumb" ]]; then
-    export PROMPT="%B%(?..[%?] )%b$user_part%B%{$FG[$ps_color]%}%m%{$reset_color%}%b$prompt "
+    export PROMPT="%B%(?..[%?] )%b$user_part%B%F{$ps_color}%m%f%b$prompt "
     export RPROMPT="%F{${1:-green}}%~%f"
 else
     export PROMPT="%(?..[%?] )%n@%m:%~> "
