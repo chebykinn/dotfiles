@@ -8,7 +8,7 @@ LOCKER_CMDLINE="i3lock -c 000000 -i"
 LOCKER_CACHE="$HOME/.cache/i3lock"
 if pgrep sway >/dev/null; then
     LOCKER_EXECUTABLE="swaylock"
-    LOCKER_CMDLINE="swaylock -c 000000 -i"
+    LOCKER_CMDLINE="swaylock -c 000000 -s tile -i"
 fi
 
 BG_CONF_SCRIPT="$HOME/.config/i3/background-config"

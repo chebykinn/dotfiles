@@ -9,5 +9,6 @@
   },
   "coc.preferences.colorSupport": false,
   "python.jediEnabled": false,
-  "python.linting.flake8Enabled": true
+  "python.linting.flake8Enabled": true,
+  "python.analysis.diagnosticEnabled": false
 }

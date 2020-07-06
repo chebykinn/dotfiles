@@ -49,9 +49,6 @@ if &diff
     colorscheme monokai
 endif
 
-" Allow using russian keymap in command mode
-set langmap=!\\"№\\;%?*ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;!@#$%&*`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>
-
 " Airline settings
 let g:airline_theme = 'badwolf'
 let g:airline#extensions#whitespace#mixed_indent_algo = 2
@@ -188,15 +185,18 @@ map K <Nop>
 nmap j gj
 nmap k gk
 
-" Switch to header
-nmap <leader>hc :A<CR>
-nmap <leader>hs :AS<CR>
-nmap <leader>hv :AV<CR>
-nmap <leader>ht :AT<CR>
-nmap <leader>hn :AN<CR>
+nmap H gT
+nmap L gt
 
-" Use <C-l> for trigger snippet expand.
-imap <C-l> <Plug>(coc-snippets-expand)
+" Switch to header
+nmap <leader>hc :FSHere<CR>
+nmap <leader>hs :FSSplitRight<CR>
+nmap <leader>hv :FSSplitRight<CR>
+nmap <leader>hs :FSSplitBelow<CR>
+nmap <leader>ht :FSRight<CR>
+
+" Use <C-p> for trigger snippet expand.
+imap <C-p> <Plug>(coc-snippets-expand)
 
 " Use <C-j> for select text for visual placeholder of snippet.
 vmap <C-j> <Plug>(coc-snippets-select)
@@ -211,6 +211,8 @@ nmap <leader>fb :Buffers<CR>
 if has("autocmd")
   au FileType cpp.doxygen nnoremap <buffer> <Leader>mf :<C-u>ClangFormat<CR>
   au FileType cpp.doxygen vnoremap <buffer> <Leader>mf :ClangFormat<CR>
+  au FileType python nnoremap <buffer> <Leader>mf :<C-u>Black<CR>
+  au FileType python vnoremap <buffer> <Leader>mf :Black<CR>
 endif
 
 
@@ -307,11 +309,12 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-abolish'
 Plug 'junegunn/fzf', { 'dir': '~/.local/share/fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
-Plug 'vim-scripts/a.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-scripts/close-duplicate-tabs'
 Plug 'rhysd/vim-clang-format'
+Plug 'derekwyatt/vim-fswitch'
+"Plug 'psf/black'
 
 call plug#end()
