@@ -274,8 +274,11 @@ bindsym --to-code $mod+Shift+minus move scratchpad
 bindsym --to-code $mod+minus scratchpad show
 
 bindsym --to-code $mod+z [app_id="org.telegram.desktop"] scratchpad show
-bindsym --to-code $mod+x [instance="vlc"] scratchpad show
-bindsym --to-code $mod+c [instance="nextcloud"] scratchpad show
+# bindsym --to-code $mod+x [instance="vlc"] scratchpad show
+bindsym --to-code $mod+x [instance="spotify"] scratchpad show; resize set 1600 1024
+bindsym --to-code $mod+c [instance="slack"] scratchpad show; resize set 1600 1024
+# bindsym --to-code $mod+c [instance="nextcloud"] scratchpad show
+bindsym --to-code $mod+b [title="vimtodo"] scratchpad show; resize set 1280 720
 
 workspace_auto_back_and_forth yes
 hide_edge_borders --i3 both
@@ -288,8 +291,10 @@ exec --no-startup-id ~/.config/i3/autoexec
 # Scratchpad apps
 for_window [instance="nextcloud"] move scratchpad
 for_window [app_id="org.telegram.desktop"] move scratchpad
-for_window [instance="vlc"] move scratchpad
-
+# for_window [instance="vlc"] move scratchpad
+for_window [instance="spotify"] move scratchpad
+for_window [instance="slack"] move scratchpad
+for_window [title="vimtodo"] move scratchpad
 # Floating mode fixes for some windows
 for_window [instance="ucommander"] floating enable
 for_window [title="QEMU"] floating enable
@@ -327,6 +332,7 @@ output $LEFT_OUTPUT {
 output $RIGHT_OUTPUT {
     pos 2048,0
     scale 1.25
+    #scale 1.0
 }
 
 output eDP-1 {

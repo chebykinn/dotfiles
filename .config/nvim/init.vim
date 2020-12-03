@@ -95,6 +95,10 @@ set indentkeys-=<:>
 
 let g:clang_format#detect_style_file = 1
 
+" Disable underscore highlighting for markdown syntax
+" (from https://github.com/tpope/vim-markdown/issues/21)
+syn match markdownError "\w\@<=\w\@="
+
 "==============================================================================
 " Keymaps
 
@@ -216,12 +220,6 @@ if has("autocmd")
 endif
 
 
-" Use `:Format` for format current buffer
-command! -nargs=0 Format :call CocAction('format')
-
-" Use `:Fold` for fold current buffer
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
 "==============================================================================
 " Commands
 
@@ -283,6 +281,12 @@ function! s:check_back_space() abort
     return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 
+" Use `:Format` for format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` for fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
 " Write as root
 command! Sw w !sudo tee % >/dev/null
 
@@ -290,6 +294,8 @@ command! W w
 
 " Trim trailing spaces and tabs
 command! Trim %s/\(\s\|<tab>\)\+$//g|noh
+
+command! -nargs=0 CocStop :call coc#rpc#stop()
 
 "==============================================================================
 
@@ -301,7 +307,7 @@ endif
 
 call plug#begin(vimdir.'/bundle')
 
-Plug 'neoclide/coc.nvim', { 'tag': '*', 'branch': 'release' }
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeTabsToggle' }
 Plug 'jistr/vim-nerdtree-tabs', { 'on':  'NERDTreeTabsToggle' }
 Plug 'scrooloose/nerdcommenter'

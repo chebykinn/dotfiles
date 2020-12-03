@@ -2,7 +2,7 @@
   "languageserver": {
    "clangd": {
       "command": "clangd-9",
-      "args": ["--background-index", "--compile-commands-dir=build", "-j=2"],
+      "args": ["--compile-commands-dir=build", "-j=2"],
       "rootPatterns": ["compile_flags.txt", "compile_commands.json", ".vim/", ".git/", ".hg/"],
       "filetypes": ["c", "cpp", "cpp.doxygen", "objc", "objcpp"]
     }

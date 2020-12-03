@@ -9,7 +9,7 @@
 order += "external_script player"
 order += "sysdata mem"
 order += "sysdata cpu"
-order += "battery 1"
+order += "battery 0"
 order += "volume master"
 order += "tztime local"
 
@@ -36,6 +36,11 @@ load {
 battery 1 {
 	format_down = ""
 	path = "/sys/class/power_supply/BAT1/uevent"
+}
+
+battery 0 {
+	format_down = ""
+	path = "/sys/class/power_supply/BAT0/uevent"
 }
 
 disk "/" {

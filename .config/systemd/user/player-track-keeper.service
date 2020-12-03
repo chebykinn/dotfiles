@@ -1,9 +1,0 @@
-[Unit]
-Description=Player Track Keeper
-
-[Service]
-Restart=on-failure
-ExecStart=%h/.config/i3/util/player-track-keeper.py
-
-[Install]
-WantedBy=default.target
