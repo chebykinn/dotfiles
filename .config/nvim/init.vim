@@ -95,10 +95,6 @@ set indentkeys-=<:>
 
 let g:clang_format#detect_style_file = 1
 
-" Disable underscore highlighting for markdown syntax
-" (from https://github.com/tpope/vim-markdown/issues/21)
-syn match markdownError "\w\@<=\w\@="
-
 "==============================================================================
 " Keymaps
 
@@ -255,6 +251,10 @@ if has("autocmd")
 
     augroup pandoc_syntax
         au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
+        " Disable underscore highlighting for markdown syntax
+        " (from https://github.com/tpope/vim-markdown/issues/21)
+        autocmd Syntax markdown.pandoc syn match markdownError "\w\@<=\w\@="
+        autocmd Syntax markdown match markdownError "\w\@<=\w\@="
     augroup END
 
     augroup BWCCreateDir
