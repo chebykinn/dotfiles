@@ -42,12 +42,14 @@ if &t_Co > 2 || has("gui_running")
     set hlsearch
 endif
 
+let g:molokai_original = 1
 set t_Co=256
 set background=dark
 colorscheme molokai
 if &diff
     colorscheme monokai
 endif
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 " Airline settings
 let g:airline_theme = 'badwolf'
@@ -120,7 +122,7 @@ nnoremap <leader>tr :Trim<CR>
 
 map <leader>pt :set paste!<CR>
 
-map <Leader>n :NERDTreeTabsToggle<CR>
+map <Leader>nt :NERDTreeTabsToggle<CR>
 
 nmap <Leader>tt :exe "tabn ".g:lasttab<CR>
 
@@ -249,6 +251,9 @@ if has("autocmd")
     au BufRead,BufNewFile *.c,*.cc,*.cpp,*.cxx,*.h,*.hpp,*.hxx set filetype=cpp.doxygen
     au FileType gitcommit set cc=72
 
+    au FileType go set noexpandtab
+    au BufRead *.go :TSEnableAll highlight go
+
     augroup pandoc_syntax
         au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
         " Disable underscore highlighting for markdown syntax
@@ -321,6 +326,9 @@ Plug 'tpope/vim-unimpaired'
 Plug 'vim-scripts/close-duplicate-tabs'
 Plug 'rhysd/vim-clang-format'
 Plug 'derekwyatt/vim-fswitch'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'doums/darcula'
 "Plug 'psf/black'
 
 call plug#end()
+
