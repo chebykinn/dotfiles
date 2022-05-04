@@ -3,4 +3,4 @@
 	url = git://github.com/robbyrussell/oh-my-zsh.git
 [submodule "root"]
 	path = root
-	url = git@git.chebykin.org:dotfiles/hier.git
+	url = git@github.com:chebykinn/dotfiles-hier.git
