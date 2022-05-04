@@ -1,7 +1,7 @@
 #!/bin/sh
 
-MOUSE_NAME="SINOWEALTH Game Mouse"
-MOUSE_SPEED="-0.8"
+MOUSE_NAME="Basilisk X HyperSpeed Mouse"
+MOUSE_SPEED="0.0"
 PROP_ID="$(xinput | grep "$MOUSE_NAME\\s*id" | cut -d'=' -f2 | cut -f1)"
 
 xinput --set-prop "$PROP_ID" 'libinput Accel Speed' "$MOUSE_SPEED"

@@ -1,14 +1,21 @@
 {
   "languageserver": {
    "clangd": {
-      "command": "clangd-9",
+      "command": "clangd",
       "args": ["--compile-commands-dir=build", "-j=2"],
       "rootPatterns": ["compile_flags.txt", "compile_commands.json", ".vim/", ".git/", ".hg/"],
       "filetypes": ["c", "cpp", "cpp.doxygen", "objc", "objcpp"]
+    },
+    "go": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod"],
+      "trace.server": "verbose",
+      "filetypes": ["go"]
     }
   },
   "coc.preferences.colorSupport": false,
   "python.jediEnabled": false,
   "python.linting.flake8Enabled": true,
-  "python.analysis.diagnosticEnabled": false
+  "python.analysis.diagnosticEnabled": false,
+  "rust-client.rlsPath": "/usr/bin/rust-analyzer"
 }

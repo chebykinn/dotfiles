@@ -1,3 +1,4 @@
 close_on_unfocus = 1
-mainwindow_yoffset = 0
+mainwindow_yoffset = -40
+mainwindow_xoffset = -100
 force_lang = en_GB.UTF-8

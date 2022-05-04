@@ -237,6 +237,12 @@ if has("autocmd")
     " For all text files set 'textwidth' to 78 characters.
     autocmd FileType text setlocal textwidth=78
 
+    autocmd FileType yaml setlocal softtabstop=2
+    autocmd FileType yaml setlocal shiftwidth=2
+    autocmd FileType yaml setlocal tabstop=2
+
+    autocmd FileType go setlocal noexpandtab
+
     " When editing a file, always jump to the last known cursor position.
     " Don't do it when the position is invalid or when inside an event handler
     " (happens when dropping a file on gvim).
@@ -249,9 +255,13 @@ if has("autocmd")
 
     " Set filetype to c++ files
     au BufRead,BufNewFile *.c,*.cc,*.cpp,*.cxx,*.h,*.hpp,*.hxx set filetype=cpp.doxygen
+    au BufRead,BufNewFile *.mustache
+    \ set filetype=go |
+    \ :TSEnableAll highlight go
+
     au FileType gitcommit set cc=72
 
-    au FileType go set noexpandtab
+    au FileType go setlocal noexpandtab
     au BufRead *.go :TSEnableAll highlight go
 
     augroup pandoc_syntax
@@ -302,6 +312,8 @@ command! Trim %s/\(\s\|<tab>\)\+$//g|noh
 
 command! -nargs=0 CocStop :call coc#rpc#stop()
 
+command! -nargs=0 Gblame :Git blame
+
 "==============================================================================
 
 if empty(glob(vimdir.'/autoload/plug.vim'))
@@ -328,6 +340,8 @@ Plug 'rhysd/vim-clang-format'
 Plug 'derekwyatt/vim-fswitch'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'doums/darcula'
+Plug 'mustache/vim-mustache-handlebars'
+Plug 'hashivim/vim-terraform'
 "Plug 'psf/black'
 
 call plug#end()

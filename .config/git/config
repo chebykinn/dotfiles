@@ -32,3 +32,5 @@
 	ui = auto
 [push]
 	followTags = true
+#[url "git@github.com:"]
+#	insteadOf = https://github.com/

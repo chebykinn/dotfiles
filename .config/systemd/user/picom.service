@@ -1,8 +1,8 @@
 [Unit]
-Description=Nextcloud
+Description=Picom daemon
 
 [Service]
-ExecStart=nextcloud
+ExecStart=/usr/bin/picom -C
 
 [Install]
 WantedBy=default.target

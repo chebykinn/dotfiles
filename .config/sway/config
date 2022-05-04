@@ -188,6 +188,7 @@ mode "$mode_system" {
 }
 
 bindsym --to-code $mod+Pause mode "$mode_system"
+bindsym --to-code $mod+Delete mode "$mode_system"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -273,7 +274,7 @@ exec swayidle \
 bindsym --to-code $mod+Shift+minus move scratchpad
 bindsym --to-code $mod+minus scratchpad show
 
-bindsym --to-code $mod+z [app_id="org.telegram.desktop"] scratchpad show
+bindsym --to-code $mod+z [app_id="telegramdesktop"] scratchpad show
 # bindsym --to-code $mod+x [instance="vlc"] scratchpad show
 bindsym --to-code $mod+x [instance="spotify"] scratchpad show; resize set 1600 1024
 bindsym --to-code $mod+c [instance="slack"] scratchpad show; resize set 1600 1024
@@ -290,7 +291,7 @@ exec --no-startup-id ~/.config/i3/autoexec
 
 # Scratchpad apps
 for_window [instance="nextcloud"] move scratchpad
-for_window [app_id="org.telegram.desktop"] move scratchpad
+for_window [app_id="telegramdesktop"] move scratchpad
 # for_window [instance="vlc"] move scratchpad
 for_window [instance="spotify"] move scratchpad
 for_window [instance="slack"] move scratchpad
