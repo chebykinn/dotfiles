@@ -1,3 +1,0 @@
-#!/bin/bash
-PROJECTS_DIR="$HOME/Documents/projects"
-cd $PROJECTS_DIR && alacritty -t vimtodo -e nvim -c 'NERDTreeTabsToggle' -p todo/*.md

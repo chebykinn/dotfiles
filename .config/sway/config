@@ -66,8 +66,8 @@ bindsym --to-code $mod+a focus parent
 # focus the child container
 #bindcode $mod+d focus child
 #
-set $LEFT_OUTPUT DP-3
-set $RIGHT_OUTPUT DP-1
+set $LEFT_OUTPUT DP-1
+set $RIGHT_OUTPUT DP-3
 set $FALLBACK_OUTPUT eDP-1
 
 set $KP_1 87
@@ -131,17 +131,6 @@ bindsym --to-code $mod+Control+l workspace next
 #bindsym --to-code $mod+Shift+9 move workspace number 9 misc
 #bindsym --to-code $mod+Shift+0 move workspace number 10 misc
 
-#bindcode $mod+Shift+$KP_1 move workspace number 1 web
-#bindcode $mod+Shift+$KP_2 move workspace number 2 dev
-#bindcode $mod+Shift+$KP_3 move workspace number 3 code
-#bindcode $mod+Shift+$KP_4 move workspace number 4 files
-#bindcode $mod+Shift+$KP_5 move workspace number 5 term
-#bindcode $mod+Shift+$KP_6 move workspace number 6 music
-#bindcode $mod+Shift+$KP_7 move workspace number 7 misc
-#bindcode $mod+Shift+$KP_8 move workspace number 8 misc
-#bindcode $mod+Shift+$KP_9 move workspace number 9 misc
-#bindcode $mod+Shift+$KP_0 move workspace number 10 misc
-#
 bindsym --to-code $mod+Shift+1 move container to workspace 1 web
 bindsym --to-code $mod+Shift+2 move container to workspace 2 dev
 bindsym --to-code $mod+Shift+3 move container to workspace 3 code
@@ -168,8 +157,6 @@ bindcode $mod+Shift+$KP_0 move container to workspace 10 misc
 bindsym --to-code $mod+Shift+C reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym --to-code $mod+Shift+R restart
-# exit i3 (logs you out of your X session)
-bindsym --to-code $mod+Shift+E exit
 
 set $Locker ~/.config/i3/locker
 
@@ -230,14 +217,6 @@ mode "resize" {
 
 bindsym --to-code $mod+r mode "resize"
 
-# music
-bindsym --to-code $mod+comma  exec --no-startup-id ~/.config/i3/sound-control down
-bindsym --to-code $mod+period exec --no-startup-id ~/.config/i3/sound-control up
-bindsym --to-code $mod+p      exec --no-startup-id ~/.config/i3/sound-control toggle-player
-bindsym --to-code Mod1+comma  exec --no-startup-id ~/.config/i3/sound-control down
-bindsym --to-code Mod1+period exec --no-startup-id ~/.config/i3/sound-control up
-bindsym --to-code Mod1+p      exec --no-startup-id ~/.config/i3/sound-control toggle-player
-
 # Pulse Audio controls
 bindsym --to-code XF86AudioRaiseVolume exec --no-startup-id ~/.config/i3/sound-control up
 bindsym --to-code XF86AudioLowerVolume exec --no-startup-id ~/.config/i3/sound-control down
@@ -271,42 +250,33 @@ exec swayidle \
    # resume 'swaymsg "output * dpms on"' \
    # before-sleep $Locker
 
-bindsym --to-code $mod+Shift+minus move scratchpad
-bindsym --to-code $mod+minus scratchpad show
-
-bindsym --to-code $mod+z [app_id="telegramdesktop"] scratchpad show
-# bindsym --to-code $mod+x [instance="vlc"] scratchpad show
-bindsym --to-code $mod+x [instance="spotify"] scratchpad show; resize set 1600 1024
-bindsym --to-code $mod+c [instance="slack"] scratchpad show; resize set 1600 1024
-# bindsym --to-code $mod+c [instance="nextcloud"] scratchpad show
-bindsym --to-code $mod+b [title="vimtodo"] scratchpad show; resize set 1280 720
-
 workspace_auto_back_and_forth yes
 hide_edge_borders --i3 both
 
 focus_follows_mouse yes
-
-# Launch autoexec scripts
-exec --no-startup-id ~/.config/i3/autoexec
-
-# Scratchpad apps
-for_window [instance="nextcloud"] move scratchpad
-for_window [app_id="telegramdesktop"] move scratchpad
-# for_window [instance="vlc"] move scratchpad
-for_window [instance="spotify"] move scratchpad
-for_window [instance="slack"] move scratchpad
-for_window [title="vimtodo"] move scratchpad
-# Floating mode fixes for some windows
-for_window [instance="ucommander"] floating enable
-for_window [title="QEMU"] floating enable
-for_window [title="^Подтвердите"] floating enable
-for_window [title="^Покинуть"] floating enable
-for_window [class="^Pidgin$" window_role="^buddy_list$"] move left
-for_window [class="^Pidgin$" window_role="^conversation$"] resize grow width 0 px or 30 ppt; move left
-
 # Disable window titles
 for_window [class="^.*"] border pixel 1
 default_border pixel
+
+
+bindsym --to-code $mod+Shift+minus move scratchpad
+bindsym --to-code $mod+minus scratchpad show
+
+bindsym --to-code $mod+z [app_id="telegramdesktop"] scratchpad show
+bindsym --to-code $mod+x [instance="spotify"] scratchpad show, resize set 1600 1024
+bindsym --to-code $mod+c [instance="slack"] scratchpad show, resize set 1600 1024
+# bindsym --to-code $mod+c [instance="nextcloud"] scratchpad show
+bindsym --to-code $mod+b [title="vimtodo"] scratchpad show, resize set 1280 720
+
+# Launch session
+exec --no-startup-id ~/.config/i3/desktop-sessiond
+
+# Scratchpad apps
+for_window [instance="spotify"] move scratchpad
+for_window [app_id="telegramdesktop"] move scratchpad
+for_window [instance="discord"] move scratchpad
+for_window [instance="slack"] move scratchpad
+for_window [instance="obsidian"] move scratchpad
 
 # Disable scrolling containers with mouse wheel
 bindsym --to-code button4 nop
@@ -328,11 +298,13 @@ input 9610:4103:SINOWEALTH_Game_Mouse {
 output $LEFT_OUTPUT {
     pos 0,0
     scale 1.25
+    mode 2560x1440@144Hz
 }
 
 output $RIGHT_OUTPUT {
     pos 2048,0
     scale 1.25
+    mode 2560x1440@144Hz
     #scale 1.0
 }
 

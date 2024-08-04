@@ -191,11 +191,6 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# music
-bindsym $mod+comma  exec --no-startup-id ~/.config/i3/sound-control down
-bindsym $mod+period exec --no-startup-id ~/.config/i3/sound-control up
-bindsym $mod+p      exec --no-startup-id ~/.config/i3/sound-control toggle-player
-
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.config/i3/sound-control up
 bindsym XF86AudioLowerVolume exec --no-startup-id ~/.config/i3/sound-control down
@@ -217,46 +212,37 @@ bindsym XF86AudioPrev exec playerctl previous
 
 # Capture screenshot
 bindsym --release Print exec --no-startup-id ~/.config/i3/screenshot
-bindsym --release Shift+Print exec --no-startup-id ~/.config/i3/screenshot
-bindsym --release Control+Print exec --no-startup-id ~/.config/i3/screenshot -a
+bindsym --release Control+Print exec --no-startup-id sh -c "gnome-screenshot -acf /tmp/screenshot && cat /tmp/screenshot | xclip -i -selection clipboard -target image/png"
+bindsym --release Shift+Print exec --no-startup-id ~/.config/i3/screenshot -a
 
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
 bindsym $mod+z [instance="telegram-desktop"] scratchpad show
-bindsym $mod+x [instance="spotify"] scratchpad show; resize set 1600 1024
-bindsym $mod+c [instance="slack"] scratchpad show; resize set 1600 1024
+bindsym $mod+x [instance="spotify"] scratchpad show, resize set 1600 1024
+bindsym $mod+c [instance="slack"] scratchpad show, resize set 1600 1024
+bindsym $mod+n [instance="discord"] scratchpad show, resize set 1600 1024
 # bindsym $mod+n [instance="nextcloud"] scratchpad show
-bindsym $mod+b [title="vimtodo"] scratchpad show; resize set 1280 720
+bindsym $mod+b [instance="obsidian"] scratchpad show, resize set 1600 1024
 bindsym Control+q exec --no-startup-id notify-send "Firefox is ok"
 bindsym $mod+slash exec --no-startup-id systemctl --user start xorg-config
 
-workspace_auto_back_and_forth yes
-hide_edge_borders both
-
-# Launch autoexec scripts
-exec --no-startup-id ~/.config/i3/autoexec
+# Launch session
+exec --no-startup-id ~/.config/i3/desktop-sessiond
 
 # Scratchpad apps
-# for_window [instance="nextcloud"] move scratchpad
 for_window [instance="spotify"] move scratchpad
 for_window [instance="telegram-desktop"] move scratchpad
-# for_window [instance="vlc"] move scratchpad
+for_window [instance="discord"] move scratchpad
 for_window [instance="slack"] move scratchpad
-for_window [title="vimtodo"] move scratchpad
-
-# Floating mode fixes for some windows
-for_window [instance="ucommander"] floating enable
-for_window [instance="quest"] floating enable
-for_window [title="QEMU"] floating enable
-for_window [title="^Подтвердите"] floating enable
-for_window [title="^Покинуть"] floating enable
-for_window [class="^Pidgin$" window_role="^buddy_list$"] move left
-for_window [class="^Pidgin$" window_role="^conversation$"] resize grow width 0 px or 30 ppt; move left
+for_window [instance="obsidian"] move scratchpad
 
 # Disable window titles
 for_window [class="^.*"] border pixel 1
 new_window pixel
+workspace_auto_back_and_forth yes
+hide_edge_borders both
+
 
 # Disable scrolling containers with mouse wheel
 bindsym button4 nop
