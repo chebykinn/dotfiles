@@ -5,12 +5,8 @@
 !i3
 !i3status
 !passwd
-!mutt
-!yaourt
-!shell
 !oh-my-zsh
 !compton.conf
-!dircolors
 !systemd
 !sway
 !nvim

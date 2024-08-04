@@ -2,26 +2,18 @@
 Description=Autoexec target
 Requires= \
   background-config.service \
-  compton.service \
-  nextcloud.service \
+  picom.service \
   nm-applet.service \
   notification-daemon.service \
   polkit-agent.service \
-  telegram.service \
   xorg-config.service
-Wants= \
-  mounter@home-public.service \
-  mounter@home-data.service
+Wants=
 After= \
   background-config.service \
-  compton.service \
-  mounter@home-public.service \
-  mounter@home-data.service \
-  nextcloud.service \
+  picom.service \
   nm-applet.service \
   notification-daemon.service \
   polkit-agent.service \
-  telegram.service \
   xorg-config.service
 
 [Install]

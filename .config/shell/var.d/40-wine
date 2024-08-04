@@ -1,2 +1,0 @@
-export WINEPATH="$HOME/.wine"
-export WINEPATH32="$HOME/.wine32"

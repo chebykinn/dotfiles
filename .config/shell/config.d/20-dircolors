@@ -1,4 +1,0 @@
-eval "$(dircolors "$XDG_CONFIG_HOME"/dircolors)"
-
-# colored completion - use my LS_COLORS
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}

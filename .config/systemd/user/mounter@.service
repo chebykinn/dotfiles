@@ -1,9 +1,0 @@
-[Unit]
-Description=GIO Mounter at %I
-
-[Service]
-Type=oneshot
-ExecStart=%h/.config/i3/util/mounter %i
-
-[Install]
-WantedBy=default.target

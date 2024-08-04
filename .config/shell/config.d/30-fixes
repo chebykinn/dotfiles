@@ -1,8 +1,0 @@
-# Some fix for git over ssh
-unset SSH_ASKPASS
-
-# Disable Ctrl+S
-stty -ixon
-
-# Disable fucking beep!!!
-[ -n "$DISPLAY" ] && xset -b

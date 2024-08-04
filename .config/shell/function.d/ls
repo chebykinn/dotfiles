@@ -1,7 +1,0 @@
-_extra_ls(){
-	/bin/ls --color=always --group-directories-first $@
-}
-
-_less_ls(){
-	_extra_ls -lah $@ | less -RM
-}

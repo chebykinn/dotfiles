@@ -1,8 +1,0 @@
-[Unit]
-Description=Nextcloud
-
-[Service]
-ExecStart=nextcloud
-
-[Install]
-WantedBy=default.target
