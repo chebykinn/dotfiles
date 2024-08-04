@@ -13,9 +13,10 @@
       "filetypes": ["go"]
     }
   },
-  "coc.preferences.colorSupport": false,
   "python.jediEnabled": false,
   "python.linting.flake8Enabled": true,
   "python.analysis.diagnosticEnabled": false,
+  "inlayHint.enable": false,
+  "python.formatting.provider": "black",
   "rust-client.rlsPath": "/usr/bin/rust-analyzer"
 }

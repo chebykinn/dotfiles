@@ -42,7 +42,7 @@ if &t_Co > 2 || has("gui_running")
     set hlsearch
 endif
 
-let g:molokai_original = 1
+"let g:molokai_original = 1
 set t_Co=256
 set background=dark
 colorscheme molokai
@@ -135,17 +135,19 @@ nnoremap * m`:keepjumps normal! *``<cr>
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
 " Use <c-space> for trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 
 " Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
 
 " Use `[c` and `]c` for navigate diagnostics
 nmap <silent> <leader>[c <Plug>(coc-diagnostic-prev)
@@ -257,20 +259,20 @@ if has("autocmd")
     au BufRead,BufNewFile *.c,*.cc,*.cpp,*.cxx,*.h,*.hpp,*.hxx set filetype=cpp.doxygen
     au BufRead,BufNewFile *.mustache
     \ set filetype=go |
-    \ :TSEnableAll highlight go
+    \ :TSEnable highlight go
 
     au FileType gitcommit set cc=72
 
     au FileType go setlocal noexpandtab
-    au BufRead *.go :TSEnableAll highlight go
+    au BufRead *.go :TSEnable highlight go
 
-    augroup pandoc_syntax
-        au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
+    " augroup pandoc_syntax
+        " au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
         " Disable underscore highlighting for markdown syntax
         " (from https://github.com/tpope/vim-markdown/issues/21)
-        autocmd Syntax markdown.pandoc syn match markdownError "\w\@<=\w\@="
-        autocmd Syntax markdown match markdownError "\w\@<=\w\@="
-    augroup END
+        " autocmd Syntax markdown.pandoc syn match markdownError "\w\@<=\w\@="
+        " autocmd Syntax markdown match markdownError "\w\@<=\w\@="
+    " augroup END
 
     augroup BWCCreateDir
         autocmd!
@@ -291,7 +293,7 @@ function! s:MkNonExDir(file, buf)
     endif
 endfunction
 
-function! s:check_back_space() abort
+function! CheckBackspace() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
@@ -342,6 +344,9 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'doums/darcula'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'hashivim/vim-terraform'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'MunifTanjim/nui.nvim'
+Plug 'dpayne/CodeGPT.nvim'
 "Plug 'psf/black'
 
 call plug#end()
