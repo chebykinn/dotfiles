@@ -1,0 +1,2 @@
+alias ls="/bin/ls --color=always --group-directories-first $@"
+alias l="_less_ls"

@@ -103,6 +103,8 @@ bindsym $mod+Control+Left workspace prev
 bindsym $mod+Control+Right workspace next
 bindsym $mod+Control+h workspace prev
 bindsym $mod+Control+l workspace next
+bindsym $mod+Control+greater move workspace to output right
+bindsym $mod+Control+less move workspace to output left
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move workspace number 1 web
@@ -219,11 +221,11 @@ bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
 bindsym $mod+z [instance="telegram-desktop"] scratchpad show
-bindsym $mod+x [instance="spotify"] scratchpad show, resize set 1600 1024
-bindsym $mod+c [instance="slack"] scratchpad show, resize set 1600 1024
-bindsym $mod+n [instance="discord"] scratchpad show, resize set 1600 1024
+#, resize set 60ppt 70ppt, move position center
+bindsym $mod+x [instance="spotify"] scratchpad show, move position center
+bindsym $mod+c [instance="crx_hondjlkedhnofcgbhifciodpdjfnonjm"] scratchpad show, move position center
+bindsym $mod+b [instance="obsidian"] scratchpad show, move position center
 # bindsym $mod+n [instance="nextcloud"] scratchpad show
-bindsym $mod+b [instance="obsidian"] scratchpad show, resize set 1600 1024
 bindsym Control+q exec --no-startup-id notify-send "Firefox is ok"
 bindsym $mod+slash exec --no-startup-id systemctl --user start xorg-config
 
@@ -233,9 +235,8 @@ exec --no-startup-id ~/.config/i3/desktop-sessiond
 # Scratchpad apps
 for_window [instance="spotify"] move scratchpad
 for_window [instance="telegram-desktop"] move scratchpad
-for_window [instance="discord"] move scratchpad
-for_window [instance="slack"] move scratchpad
 for_window [instance="obsidian"] move scratchpad
+for_window [instance="crx_hondjlkedhnofcgbhifciodpdjfnonjm"] move scratchpad
 
 # Disable window titles
 for_window [class="^.*"] border pixel 1

@@ -1,5 +1,6 @@
 typeset -U path
 path=(
+    /var/lib/flatpak/exports/bin
     "$HOME/bin"
     "$HOME/.local/bin"
     "$HOME/.cargo/bin"

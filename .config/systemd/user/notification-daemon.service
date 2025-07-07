@@ -2,7 +2,7 @@
 Description=Notification daemon
 
 [Service]
-ExecStart=/usr/lib/notification-daemon-1.0/notification-daemon
+ExecStart=/usr/libexec/notification-daemon
 
 [Install]
 WantedBy=default.target

@@ -4,7 +4,7 @@
 
 
 LOCKER_EXECUTABLE="i3lock"
-LOCKER_CMDLINE="i3lock -c 000000 -i"
+LOCKER_CMDLINE="i3lock -c 000000 -t -i"
 LOCKER_CACHE="$HOME/.cache/i3lock"
 if pgrep sway >/dev/null; then
     LOCKER_EXECUTABLE="swaylock"

@@ -2,7 +2,7 @@
 Description=Gnome settings daemon
 
 [Service]
-ExecStart=/usr/lib/gsd-xsettings
+ExecStart=/usr/libexec/gsd-xsettings
 
 [Install]
 WantedBy=default.target
