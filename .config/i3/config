@@ -65,67 +65,47 @@ bindsym $mod+a focus parent
 
 # focus the child container
 #bindcode $mod+d focus child
-
-set $KP_1 87
-set $KP_2 88
-set $KP_3 89
-set $KP_4 83
-set $KP_5 84
-set $KP_6 85
-set $KP_7 79
-set $KP_8 80
-set $KP_9 81
-set $KP_0 90
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
 
 # switch to workspace
-bindsym $mod+1 workspace 1 web
-bindsym $mod+2 workspace 2 dev
-bindsym $mod+3 workspace 3 code
-bindsym $mod+4 workspace 4 files
-bindsym $mod+5 workspace 5 term
-bindsym $mod+6 workspace 6 music
-bindsym $mod+7 workspace 7 misc
-bindsym $mod+8 workspace 8 misc
-bindsym $mod+9 workspace 9 misc
-bindsym $mod+0 workspace 10 misc
-bindcode $mod+$KP_1 workspace 1 web
-bindcode $mod+$KP_2 workspace 2 dev
-bindcode $mod+$KP_3 workspace 3 code
-bindcode $mod+$KP_4 workspace 4 files
-bindcode $mod+$KP_5 workspace 5 term
-bindcode $mod+$KP_6 workspace 6 music
-bindcode $mod+$KP_7 workspace 7 misc
-bindcode $mod+$KP_8 workspace 8 misc
-bindcode $mod+$KP_9 workspace 9 misc
-bindcode $mod+$KP_0 workspace 10 misc
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
 
 bindsym $mod+Control+Left workspace prev
 bindsym $mod+Control+Right workspace next
 bindsym $mod+Control+h workspace prev
 bindsym $mod+Control+l workspace next
+bindsym $mod+Control+less move workspace to output left
+bindsym $mod+Control+greater move workspace to output right
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move workspace number 1 web
-bindsym $mod+Shift+2 move workspace number 2 dev
-bindsym $mod+Shift+3 move workspace number 3 code
-bindsym $mod+Shift+4 move workspace number 4 files
-bindsym $mod+Shift+5 move workspace number 5 term
-bindsym $mod+Shift+6 move workspace number 6 music
-bindsym $mod+Shift+7 move workspace number 7 misc
-bindsym $mod+Shift+8 move workspace number 8 misc
-bindsym $mod+Shift+9 move workspace number 9 misc
-bindsym $mod+Shift+0 move workspace number 10 misc
-
-bindcode $mod+Shift+$KP_1 move workspace number 1 web
-bindcode $mod+Shift+$KP_2 move workspace number 2 dev
-bindcode $mod+Shift+$KP_3 move workspace number 3 code
-bindcode $mod+Shift+$KP_4 move workspace number 4 files
-bindcode $mod+Shift+$KP_5 move workspace number 5 term
-bindcode $mod+Shift+$KP_6 move workspace number 6 music
-bindcode $mod+Shift+$KP_7 move workspace number 7 misc
-bindcode $mod+Shift+$KP_8 move workspace number 8 misc
-bindcode $mod+Shift+$KP_9 move workspace number 9 misc
-bindcode $mod+Shift+$KP_0 move workspace number 10 misc
+bindsym $mod+Shift+1 move workspace $ws1
+bindsym $mod+Shift+2 move workspace $ws2
+bindsym $mod+Shift+3 move workspace $ws3
+bindsym $mod+Shift+4 move workspace $ws4
+bindsym $mod+Shift+5 move workspace $ws5
+bindsym $mod+Shift+6 move workspace $ws6
+bindsym $mod+Shift+7 move workspace $ws7
+bindsym $mod+Shift+8 move workspace $ws8
+bindsym $mod+Shift+9 move workspace $ws9
+bindsym $mod+Shift+0 move workspace $ws10
 
 # reload the configuration file
 bindsym $mod+Shift+C reload
@@ -219,16 +199,15 @@ bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
 bindsym $mod+z [instance="telegram-desktop"] scratchpad show
-bindsym $mod+x [instance="spotify"] scratchpad show, resize set 1600 1024
-bindsym $mod+c [instance="slack"] scratchpad show, resize set 1600 1024
-bindsym $mod+n [instance="discord"] scratchpad show, resize set 1600 1024
-# bindsym $mod+n [instance="nextcloud"] scratchpad show
-bindsym $mod+b [instance="obsidian"] scratchpad show, resize set 1600 1024
+bindsym $mod+x [instance="spotify"] scratchpad show, resize set 50ppt 70ppt
+bindsym $mod+c [instance="slack"] scratchpad show, resize set 50ppt 70ppt
+bindsym $mod+n [instance="discord"] scratchpad show, resize set 50ppt 70ppt
+bindsym $mod+b [instance="obsidian"] scratchpad show, resize set 50ppt 70ppt
 bindsym Control+q exec --no-startup-id notify-send "Firefox is ok"
 bindsym $mod+slash exec --no-startup-id systemctl --user start xorg-config
 
-# Launch session
-exec --no-startup-id ~/.config/i3/desktop-sessiond
+bindsym $mod+Shift+Mod1+minus exec --no-startup-id ~/.config/i3/layout
+#bindsym $mod+Shift+т exec --no-startup-id ~/.config/i3/layout
 
 # Scratchpad apps
 for_window [instance="spotify"] move scratchpad
@@ -239,10 +218,9 @@ for_window [instance="obsidian"] move scratchpad
 
 # Disable window titles
 for_window [class="^.*"] border pixel 1
-new_window pixel
+default_border pixel
 workspace_auto_back_and_forth yes
 hide_edge_borders both
-
 
 # Disable scrolling containers with mouse wheel
 bindsym button4 nop
@@ -259,3 +237,6 @@ bar {
     status_command py3status
     font pango: Noto Sans Bold 9
 }
+
+# Launch session
+exec --no-startup-id ~/.config/i3/desktop-sessiond

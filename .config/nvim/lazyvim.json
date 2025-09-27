@@ -1,0 +1,15 @@
+{
+  "extras": [
+    "lazyvim.plugins.extras.ai.codeium",
+    "lazyvim.plugins.extras.editor.fzf",
+    "lazyvim.plugins.extras.lang.go",
+    "lazyvim.plugins.extras.lang.python",
+    "lazyvim.plugins.extras.lang.rust",
+    "lazyvim.plugins.extras.lang.typescript"
+  ],
+  "install_version": 8,
+  "news": {
+    "NEWS.md": "10960"
+  },
+  "version": 8
+}

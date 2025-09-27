@@ -1,0 +1,19 @@
+#!/bin/bash
+
+ADAPTER_MAC="70:A6:CC:B7:A7:AE"
+MAC="88:C9:E8:9B:85:48"
+
+MAC_NO_COLON=$(echo "$MAC" | sed 's/://g' | awk '{print tolower($0)}')
+ADAPTER_NO_COLON=$(echo "$ADAPTER_MAC" | sed 's/://g' | awk '{print tolower($0)}')
+
+# Specify the path of the Windows registry file
+registry_path="/run/media/ivan/B4E647EDE647AE84/Windows/System32/config/SYSTEM"
+
+# Extract the Bluetooth pair key from the registry using chntpw tool
+output=$(echo -e "hex ControlSet001\\Services\\BTHPORT\\Parameters\\Keys\\$ADAPTER_NO_COLON\\$MAC_NO_COLON\nq" | chntpw -e $registry_path)
+
+pair_key=$(echo "$output" | grep "^:" | sed -E 's/:00000  (([A-Z0-9]{2} ){16}).*/\1/' | tr -d ' ')
+
+sed -i "s/Key=.*/Key=$pair_key/" "/var/lib/bluetooth/$ADAPTER_MAC/$MAC/info"
+
+systemctl restart bluetooth
