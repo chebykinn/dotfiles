@@ -1,3 +1,4 @@
+include /etc/sway/config.d/*
 # i3 config file
 
 # Set modificator to winkey, Mod1 -- Left Alt
@@ -81,38 +82,38 @@ set $KP_8 80
 set $KP_9 81
 set $KP_0 90
 
-workspace 1 web output $RIGHT_OUTPUT $FALLBACK_OUTPUT
-workspace 2 dev output $LEFT_OUTPUT $FALLBACK_OUTPUT
-workspace 3 code output $RIGHT_OUTPUT $FALLBACK_OUTPUT
-workspace 4 files output $RIGHT_OUTPUT $FALLBACK_OUTPUT
-workspace 5 term output $LEFT_OUTPUT $FALLBACK_OUTPUT
-workspace 6 music output $RIGHT_OUTPUT $FALLBACK_OUTPUT
-workspace 7 misc output $RIGHT_OUTPUT $FALLBACK_OUTPUT
-workspace 8 misc output $RIGHT_OUTPUT $FALLBACK_OUTPUT
-workspace 9 misc output $RIGHT_OUTPUT $FALLBACK_OUTPUT
-workspace 10 misc output $FALLBACK_OUTPUT
+workspace 1 output  $FALLBACK_OUTPUT
+workspace 2 output  $FALLBACK_OUTPUT
+workspace 3 output  $FALLBACK_OUTPUT
+workspace 4 output  $FALLBACK_OUTPUT
+workspace 5 output  $FALLBACK_OUTPUT
+workspace 6 output  $FALLBACK_OUTPUT
+workspace 7 output  $FALLBACK_OUTPUT
+workspace 8 output  $FALLBACK_OUTPUT
+workspace 9 output  $FALLBACK_OUTPUT
+workspace 10 output $FALLBACK_OUTPUT
 
 # switch to workspace
-bindsym --to-code $mod+1 workspace 1 web
-bindsym --to-code $mod+2 workspace 2 dev
-bindsym --to-code $mod+3 workspace 3 code
-bindsym --to-code $mod+4 workspace 4 files
-bindsym --to-code $mod+5 workspace 5 term
-bindsym --to-code $mod+6 workspace 6 music
-bindsym --to-code $mod+7 workspace 7 misc
-bindsym --to-code $mod+8 workspace 8 misc
-bindsym --to-code $mod+9 workspace 9 misc
-bindsym --to-code $mod+0 workspace 10 misc
-bindcode $mod+$KP_1 workspace 1 web
-bindcode $mod+$KP_2 workspace 2 dev
-bindcode $mod+$KP_3 workspace 3 code
-bindcode $mod+$KP_4 workspace 4 files
-bindcode $mod+$KP_5 workspace 5 term
-bindcode $mod+$KP_6 workspace 6 music
-bindcode $mod+$KP_7 workspace 7 misc
-bindcode $mod+$KP_8 workspace 8 misc
-bindcode $mod+$KP_9 workspace 9 misc
-bindcode $mod+$KP_0 workspace 10 misc
+bindsym --to-code $mod+1 workspace 1
+bindsym --to-code $mod+2 workspace 2
+bindsym --to-code $mod+3 workspace 3
+bindsym --to-code $mod+4 workspace 4
+bindsym --to-code $mod+5 workspace 5
+bindsym --to-code $mod+6 workspace 6
+bindsym --to-code $mod+7 workspace 7
+bindsym --to-code $mod+8 workspace 8
+bindsym --to-code $mod+9 workspace 9
+bindsym --to-code $mod+0 workspace 10
+bindcode $mod+$KP_1 workspace 1
+bindcode $mod+$KP_2 workspace 2
+bindcode $mod+$KP_3 workspace 3
+bindcode $mod+$KP_4 workspace 4
+bindcode $mod+$KP_5 workspace 5
+bindcode $mod+$KP_6 workspace 6
+bindcode $mod+$KP_7 workspace 7
+bindcode $mod+$KP_8 workspace 8
+bindcode $mod+$KP_9 workspace 9
+bindcode $mod+$KP_0 workspace 10
 
 bindsym --to-code $mod+Control+Left workspace prev
 bindsym --to-code $mod+Control+Right workspace next
@@ -131,27 +132,30 @@ bindsym --to-code $mod+Control+l workspace next
 #bindsym --to-code $mod+Shift+9 move workspace number 9 misc
 #bindsym --to-code $mod+Shift+0 move workspace number 10 misc
 
-bindsym --to-code $mod+Shift+1 move container to workspace 1 web
-bindsym --to-code $mod+Shift+2 move container to workspace 2 dev
-bindsym --to-code $mod+Shift+3 move container to workspace 3 code
-bindsym --to-code $mod+Shift+4 move container to workspace 4 files
-bindsym --to-code $mod+Shift+5 move container to workspace 5 term
-bindsym --to-code $mod+Shift+6 move container to workspace 6 music
-bindsym --to-code $mod+Shift+7 move container to workspace 7 misc
-bindsym --to-code $mod+Shift+8 move container to workspace 8 misc
-bindsym --to-code $mod+Shift+9 move container to workspace 9 misc
-bindsym --to-code $mod+Shift+0 move container to workspace 10 misc
+bindsym --to-code $mod+Shift+1 move container to workspace 1
+bindsym --to-code $mod+Shift+2 move container to workspace 2
+bindsym --to-code $mod+Shift+3 move container to workspace 3
+bindsym --to-code $mod+Shift+4 move container to workspace 4
+bindsym --to-code $mod+Shift+5 move container to workspace 5
+bindsym --to-code $mod+Shift+6 move container to workspace 6
+bindsym --to-code $mod+Shift+7 move container to workspace 7
+bindsym --to-code $mod+Shift+8 move container to workspace 8
+bindsym --to-code $mod+Shift+9 move container to workspace 9
+bindsym --to-code $mod+Shift+0 move container to workspace 10
 
-bindcode $mod+Shift+$KP_1 move container to workspace 1 web
-bindcode $mod+Shift+$KP_2 move container to workspace 2 dev
-bindcode $mod+Shift+$KP_3 move container to workspace 3 code
-bindcode $mod+Shift+$KP_4 move container to workspace 4 files
-bindcode $mod+Shift+$KP_5 move container to workspace 5 term
-bindcode $mod+Shift+$KP_6 move container to workspace 6 music
-bindcode $mod+Shift+$KP_7 move container to workspace 7 misc
-bindcode $mod+Shift+$KP_8 move container to workspace 8 misc
-bindcode $mod+Shift+$KP_9 move container to workspace 9 misc
-bindcode $mod+Shift+$KP_0 move container to workspace 10 misc
+bindcode $mod+Shift+$KP_1 move container to workspace 1
+bindcode $mod+Shift+$KP_2 move container to workspace 2
+bindcode $mod+Shift+$KP_3 move container to workspace 3
+bindcode $mod+Shift+$KP_4 move container to workspace 4
+bindcode $mod+Shift+$KP_5 move container to workspace 5
+bindcode $mod+Shift+$KP_6 move container to workspace 6
+bindcode $mod+Shift+$KP_7 move container to workspace 7
+bindcode $mod+Shift+$KP_8 move container to workspace 8
+bindcode $mod+Shift+$KP_9 move container to workspace 9
+bindcode $mod+Shift+$KP_0 move container to workspace 10
+
+#bindcode $mod+Control+Shift+Right move workspace to output right
+#bindcode $mod+Control+Shift+Left move workspace to output left
 
 # reload the configuration file
 bindsym --to-code $mod+Shift+C reload
@@ -262,21 +266,21 @@ default_border pixel
 bindsym --to-code $mod+Shift+minus move scratchpad
 bindsym --to-code $mod+minus scratchpad show
 
-bindsym --to-code $mod+z [app_id="telegramdesktop"] scratchpad show
+bindsym --to-code $mod+z [app_id="org.telegram.desktop"] scratchpad show
 bindsym --to-code $mod+x [instance="spotify"] scratchpad show, resize set 1600 1024
 bindsym --to-code $mod+c [instance="slack"] scratchpad show, resize set 1600 1024
 # bindsym --to-code $mod+c [instance="nextcloud"] scratchpad show
-bindsym --to-code $mod+b [title="vimtodo"] scratchpad show, resize set 1280 720
+bindsym --to-code $mod+b [app_id="obsidian"] scratchpad show, resize set 1280 720
 
 # Launch session
 exec --no-startup-id ~/.config/i3/desktop-sessiond
 
 # Scratchpad apps
 for_window [instance="spotify"] move scratchpad
-for_window [app_id="telegramdesktop"] move scratchpad
+for_window [app_id="org.telegram.desktop"] move scratchpad
 for_window [instance="discord"] move scratchpad
 for_window [instance="slack"] move scratchpad
-for_window [instance="obsidian"] move scratchpad
+for_window [app_id="obsidian"] move scratchpad
 
 # Disable scrolling containers with mouse wheel
 bindsym --to-code button4 nop
@@ -289,10 +293,7 @@ input * {
     repeat_rate 50
     tap enabled
     xkb_numlock enabled
-}
-
-input 9610:4103:SINOWEALTH_Game_Mouse {
-    pointer_accel -0.8
+    pointer_accel 0.3
 }
 
 output $LEFT_OUTPUT {
@@ -305,25 +306,15 @@ output $RIGHT_OUTPUT {
     pos 2048,0
     scale 1.25
     mode 2560x1440@144Hz
-    #scale 1.0
 }
+#
+#output eDP-1 {
+#    pos 4096,0
+#}
 
-output eDP-1 {
-    pos 4096,0
-    #pos 0,0
-}
+#output eDP-1 mode 2880x1800 scale 2 pos 0 0
+#output DP-1 mode 3840x2160 scale 2 pos 0 0
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-
-# finds out, if available)
 bar {
-    # Disable scrolling workspaces with mouse wheel
-    # disable vertical scrolling
-    bindsym button4 nop
-    bindsym button5 nop
-    # disable horizontal scrolling
-    bindsym button6 nop
-    bindsym button7 nop
-    status_command py3status
-    font pango: Noto Sans Bold 9
+    swaybar_command waybar
 }

@@ -6,8 +6,8 @@ AREA_SHOT_CMDLINE="gnome-screenshot -a -f $OUT_FILENAME"
 SHOT_CMDLINE="scrot -e 'mv \$f $OUT_FILENAME'"
 
 if [ ! -z "$WAYLAND_DISPLAY" ]; then
-  AREA_SHOT_CMDLINE="slurp | grim -g - $OUT_FILENAME"
-  SHOT_CMDLINE="grim $OUT_FILENAME"
+  AREA_SHOT_CMDLINE="grimshot copy area"
+  SHOT_CMDLINE="grimshot save area $OUT_FILENAME"
 fi
 
 IS_AREA=0

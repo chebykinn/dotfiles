@@ -199,10 +199,11 @@ bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
 bindsym $mod+z [instance="telegram-desktop"] scratchpad show
-bindsym $mod+x [instance="spotify"] scratchpad show, resize set 50ppt 70ppt
-bindsym $mod+c [instance="slack"] scratchpad show, resize set 50ppt 70ppt
-bindsym $mod+n [instance="discord"] scratchpad show, resize set 50ppt 70ppt
-bindsym $mod+b [instance="obsidian"] scratchpad show, resize set 50ppt 70ppt
+bindsym $mod+x [instance="spotify"] scratchpad show, resize set 1280 720
+bindsym $mod+c [instance="slack"] scratchpad show, resize set 1280 720
+bindsym $mod+n [instance="discord"] scratchpad show, resize set 1280 720
+# bindsym $mod+n [instance="nextcloud"] scratchpad show
+bindsym $mod+b [instance="obsidian"] scratchpad show, resize set 1280 720
 bindsym Control+q exec --no-startup-id notify-send "Firefox is ok"
 bindsym $mod+slash exec --no-startup-id systemctl --user start xorg-config
 

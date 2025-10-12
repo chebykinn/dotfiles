@@ -5,8 +5,11 @@ $HOME/.config/i3/xorg-config
 
 $HOME/.config/i3/background-config &
 picom &
-/usr/lib/notification-daemon-1.0/notification-daemon &
+/usr/lib/gsd-rfkill &
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+
 # dex -a
+/usr/lib/xdg-desktop-portal-gtk &
+/usr/lib/xdg-desktop-portal-wlr &
 
 wait

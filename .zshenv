@@ -4,6 +4,8 @@ path=(
     "$HOME/.local/bin"
     "$HOME/.cargo/bin"
     "$HOME/go/bin"
+    "$HOME/.local/share/pnpm"
+    "$HOME/.rml"
     $path
 )
 
